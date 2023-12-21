@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script src="script.js"></script>
+    <h1>Calculator</h1>
+    <div class="calculator">
+        <input type="text" id="num1" placeholder="Number 1">
+        <input type="text" id="num2" placeholder="Number 2">
+
+        <select id="operator" onchange="calculate">
+            <option value="add">Add</option>
+            <option value="subtract">Subtract</option>
+            <option value="multiply">Multiply</option>
+            <option value="divide">Divide</option>
+        </select>
+        <button onclick="calculate()">Calculate</button>
+        <p>The answer is: <span id="output">0</span></p>
+</body>
+</html>
