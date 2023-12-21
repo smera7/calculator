@@ -84,13 +84,26 @@ displayOutput(add(5, 3)); // Output: 8
 // displayOutput(divide(10, 0)); // Output: Error: Division by zero
 
 // second calculator
-// button function on click display
-function display() {
-  }
-
-var number1;
+var buttonvalues = [];
 var number2;
 var operator;
+var result;
+
+// // button function on click display
+function display(button) {
+    // Get the text content of the clicked button
+    var buttonText = button.textContent;
+
+    // Update the value of the input element with the button text content
+    var computationInput = document.getElementById('computation');
+    computationInput.value = buttonText;
+    // var currentText = computationInput.value;
+
+    // var newText = currentText + buttonText;
+
+    // // Update the value of the input element with the concatenated text
+    // computationInput.value = newText;
+  }
 
 
 
