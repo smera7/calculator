@@ -17,7 +17,8 @@ function multiply(a, b) {
 // Function to divide two numbers
 function divide(a, b) {
     if (b === 0) {
-        return "Error: Division by zero";
+        zero_error = 'Error: Division by zero';
+        return zero_error;
     }
     return a / b;
 }
@@ -54,6 +55,16 @@ function calculate() {
     var outputElement = document.getElementById("output");
     outputElement.textContent = result;
 
+    if (typeof result === 'string' && result.startsWith('Error:')) {
+        // Apply red color for error messages
+        outputElement.style.color = 'red';
+    } else {
+        // Reset color for non-error messages
+        outputElement.style.color = '';
+    }
+    
+    outputElement.textContent = result;
+
   }
 
 // Function to display output
@@ -71,3 +82,15 @@ displayOutput(add(5, 3)); // Output: 8
 // displayOutput(multiply(2, 6)); // Output: 12
 // displayOutput(divide(10, 2)); // Output: 5
 // displayOutput(divide(10, 0)); // Output: Error: Division by zero
+
+// second calculator
+// button function on click display
+function display() {
+  }
+
+var number1;
+var number2;
+var operator;
+
+
+
