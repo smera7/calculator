@@ -44,7 +44,7 @@ document.querySelector('form.userinput').addEventListener('submit', function (e)
 // console.log(userInput);
 var number1;
 var number2;
-var newop;
+var operator;
 var result;
 
 let tryInput; // Declare the variable at a global scopes
@@ -84,8 +84,10 @@ function getOperator(tryInput) {
 
 function getNumber2(tryInput, operator) {
   number2 = tryInput.split(/[+\-*/]/g)[1];
+  parseInt(number2);
+  number2 = Number(number2);
   console.log("Number 2:", number2);
-  return parseInt(number2);
+  return number2;
 };
 
 
@@ -118,15 +120,15 @@ var selectedOption = document.getElementsByClassName("operatormulti");
 var a = number1;
 var b = number2;
 // var newop = operator;
-console.log("Newop:", newop);
+console.log("Newop:", operator);
 // Perform a function based on the selected option
-if (newop === '+') {
+if (operator === '+') {
     result = add(a, b);
-} else if (newop === '-') {
+} else if (operator === '-') {
     result = subtract(a, b);
-} else if (newop === '*') {
+} else if (operator === '*') {
     result = multiply(a, b);
-} else if (newop === '/') {
+} else if (operator === '/') {
     result = divide(a, b);
     console.log(result);
 
