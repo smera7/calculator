@@ -2,6 +2,8 @@
 
 // const { get } = require("http");
 
+// const { get } = require("http");
+
 // Function to add two numbers
 function add(a, b) {
     return a + b;
@@ -43,8 +45,8 @@ var number2;
 var newop;
 var result;
 
-let tryInput; // Declare the variable at a global scope
-let operator;
+let tryInput; // Declare the variable at a global scopes
+
 
 document.querySelector('form.userinput').addEventListener('submit', function (e) {
   // Prevent the normal submission of the form
@@ -56,6 +58,7 @@ document.querySelector('form.userinput').addEventListener('submit', function (e)
 
   // Call a function or execute code that needs the value
   proccesing();
+  getOperator(tryInput);
 });
 
 // Function to do something with the value outside the event listener
@@ -68,7 +71,12 @@ function proccesing() {
   function getOperator(tryInput) {
     console.log("tryInput2:", tryInput);
     console.log(typeof(tryInput));
-    var operator = tryInput.split("")[1];}
+    operator = tryInput.split("")[1];
+    operator.astype()
+    var jiji = 2;
+    console.log("new:", jiji);
+    console.log("Operator:", operator);
+  };
 
 
   // console.log("Operator:", operator);
