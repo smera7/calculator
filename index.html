@@ -13,10 +13,11 @@
                 <label for="computation"></label>
                 <input type="text" id="computation" placeholder="54 + 29" required>
                 <button type="submit">=</button>
+                <input type="reset" value="Clear" onclick="clearText()" id="clearzy"/>
+                <p><span id="output"></span></p>
             </form>
 
             <!-- <input type="text" id="computation" placeholder="54 + 29" onsubmit="return processInput()"> -->
-            <p><span id="output"></span></p>
 
         </div> <br>
 
@@ -45,7 +46,7 @@
             <!-- <button onclick="calculatemulti">=</button> -->
             <div>
                 <br>
-                <button onclick="clear">Clear</button>
+                <button onclick="clear();">Clear</button>
             </div>
         <script src="script.js"></script>
 </body>

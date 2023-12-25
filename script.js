@@ -27,7 +27,9 @@ function divide(a, b) {
       zero_error = 'Error: Division by zero';
       return zero_error;
   }
-  return a / b;
+  result = a / b;
+  console.log("lalala", result);
+  return result;
 }
 
 // console.log(add(2, 3));
@@ -96,12 +98,12 @@ function calculatemulti(number1, number2, operator) {
       result = multiply(a, b);
   } else if (operator == ''/'') {
       result = divide(a, b);
+      console.log('div', result);
   
   }console.log("wackadoor", result);
   return result;
   };
-
-  console.log("resultomundo", result);
+  
   document.getElementById("output").innerText = result;
 };
 
@@ -146,13 +148,19 @@ function display(button) {
   }
 }
 
-// function getNumber2(expression, operator) {
-//   const number2 = expression.split(operator)[1];
-//   console.log(number2);
-//   return parseInt(number2);}
 
+// function clear(){
+// document.getElementById("computation").value = ' ';
+// // document.getElementById("output").innerText = result;
+// }
 
-function clear(button){
-var computationInput = document.getElementById('computation');
-document.getElementById("output").innerText = result;
-}
+function clearText()  
+{
+    document.getElementById('output').value = " ";
+    document.getElementById('computation').value = "";}  
+
+    const outputSpan = document.getElementById("output");
+
+    clearzy.addEventListener("click", () => {
+      outputSpan.textContent = ""; // Clear the text content of the span
+    });
