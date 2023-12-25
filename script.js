@@ -1,5 +1,7 @@
 // const { get } = require("http");
 
+// const { type } = require("os");
+
 // const { get } = require("http");
 
 // const { get } = require("http");
@@ -81,10 +83,10 @@ function getOperator(tryInput) {
 };
 
 function getNumber2(tryInput, operator) {
-  number2 = tryInput.split("")[1];
-  console.log("yogo", number2);
+  number2 = tryInput.split(/[+\-*/]/g)[1];
+  console.log("Number 2:", number2);
   return parseInt(number2);
-}
+};
 
 
 // console.log("Operator:", operator);
