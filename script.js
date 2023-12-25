@@ -1,3 +1,6 @@
+// const { get } = require("http");
+
+// const { get } = require("http");
 
 // Function to add two numbers
 function add(a, b) {
@@ -40,7 +43,8 @@ var number2;
 var newop;
 var result;
 
-var tryInput; // Declare the variable at a global scope
+let tryInput; // Declare the variable at a global scope
+let operator;
 
 document.querySelector('form.userinput').addEventListener('submit', function (e) {
   // Prevent the normal submission of the form
@@ -59,28 +63,34 @@ function proccesing() {
   console.log("User entered:", tryInput);
   var number1 = parseInt(tryInput);
   console.log("Number 1:", number1);
-  var operator = getOperator(tryInput);
-  console.log("Operator:", operator);
-  var number2 = getNumber2(tryInput, operator);
-  console.log("Number 2:", number2);
+  operator = getOperator(tryInput);};
 
-  let result;
+  function getOperator(tryInput) {
+    console.log("tryInput2:", tryInput);
+    console.log(typeof(tryInput));
+    var operator = tryInput.split("")[1];}
+
+
+  // console.log("Operator:", operator);
+  // var number2 = getNumber2(tryInput, operator);
+  // console.log("Number 2:", number2);
 
   // Perform a function based on the selected option
-  if (operator === '+') {
-      result = add(number1, number2);
-  } else if (operator === '-') {
-      result = subtract(number1, number2);
-  } else if (operator === '*') {
-      result = multiply(number1, number2);
-  } else if (operator === '/') {
-      result = divide(number1, number2);
-      console.log(result);
-  }
-  return result;
-}
+  // if (operator === '+') {
+  //     result = add(number1, number2);
+  // } else if (operator === '-') {
+  //     result = subtract(number1, number2);
+  // } else if (operator === '*') {
+  //     result = multiply(number1, number2);
+  // } else if (operator === '/') {
+  //     result = divide(number1, number2);
+  //     console.log(result);
+  // }
+
+  console.log("tryinput1:", tryInput);
 
 proccesing();
+
 
 function calculatemulti() {
   // Get the selected option value
@@ -89,9 +99,8 @@ function calculatemulti() {
   var selectedOption = document.getElementsByClassName("operatormulti");
   var a = number1;
   var b = number2;
-  var newop = operator;
+  // var newop = operator;
   console.log("Newop:", newop);
-  let result;
   // Perform a function based on the selected option
   if (newop === '+') {
       result = add(a, b);
@@ -134,21 +143,10 @@ function display(button) {
     }
   }
 
-function getOperator(expression) {
-  const operators = ['+', '-', '*', '/'];
-  for (let i = 0; i < operators.length; i++) {
-      if (expression.includes(operators[i])) {
-          const operator = operators[i].replace(/['"]+/g, '');
-          console.log("Operator:", operator);
-          return operator;
-      }
-  }
-}
-
-  function getNumber2(expression, operator) {
-    const number2 = expression.split(operator)[1];
-    console.log(number2);
-    return parseInt(number2);}
+  // function getNumber2(expression, operator) {
+  //   const number2 = expression.split(operator)[1];
+  //   console.log(number2);
+  //   return parseInt(number2);}
 
 
 function clear(button){
