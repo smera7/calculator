@@ -23,71 +23,95 @@ function divide(a, b) {
     return a / b;
 }
 
-function calculate() {
-    // Get the selected option value
-    var selectedOption = document.getElementById("operator").selectedOptions[0].textContent;
-    var a = parseInt(document.getElementById("num1").value);
-    var b = parseInt(document.getElementById("num2").value);
-    console.log(a, b, selectedOption);
-    let result;
-    // Perform a function based on the selected option
-    switch (selectedOption) {
-      case "Add":
-        // Code for Option 1
-        result = add(a, b);
-        console.log(result);
-        break;
-      case "Subtract":
-        // Code for Option 2
-        result = subtract(a, b);
-        break;
-      case "Multiply":
-        // Code for Option 3
-        result = multiply(a, b);
-        break;
-      case "Divide":
-        // Code for Option 4
-        result = divide(a, b);
-        break;
+// console.log(add(2, 3));
+var computationInput = document.getElementById('computation');
 
-    }
+document.querySelector('form.userinput').addEventListener('submit', function (e) {
 
-    var outputElement = document.getElementById("output");
-    outputElement.textContent = result;
+    //prevent the normal submission of the form
+    e.preventDefault();
+    console.log(computationInput.value);    
+});
 
-    if (typeof result === 'string' && result.startsWith('Error:')) {
-        // Apply red color for error messages
-        outputElement.style.color = 'red';
-    } else {
-        // Reset color for non-error messages
-        outputElement.style.color = '';
-    }
-    
-    outputElement.textContent = result;
+// let userInput = processInput();
+// console.log(userInput);
+var number1;
+var number2;
+var newop;
+var result;
 
+var tryInput; // Declare the variable at a global scope
+
+document.querySelector('form.userinput').addEventListener('submit', function (e) {
+  // Prevent the normal submission of the form
+  e.preventDefault();
+
+  // Access the input value using the declared variable
+  tryInput = document.getElementById('computation').value;
+  console.log("Inside event listener:", tryInput);
+
+  // Call a function or execute code that needs the value
+  proccesing();
+});
+
+// Function to do something with the value outside the event listener
+function proccesing() {
+  console.log("User entered:", tryInput);
+  var number1 = parseInt(tryInput);
+  console.log("Number 1:", number1);
+  var operator = getOperator(tryInput);
+  console.log("Operator:", operator);
+  var number2 = getNumber2(tryInput, operator);
+  console.log("Number 2:", number2);
+
+  let result;
+
+  // Perform a function based on the selected option
+  if (operator === '+') {
+      result = add(number1, number2);
+  } else if (operator === '-') {
+      result = subtract(number1, number2);
+  } else if (operator === '*') {
+      result = multiply(number1, number2);
+  } else if (operator === '/') {
+      result = divide(number1, number2);
+      console.log(result);
   }
-
-// Function to display output
-function displayOutput(output) {
-    console.log("Output:", output);
-    return calculate();
+  return result;
 }
 
-var outputElement = document.getElementById("output");
-    outputElement.textContent = calculate();
+proccesing();
 
-// Example usage
-displayOutput(add(5, 3)); // Output: 8
-// displayOutput(subtract(10, 4)); // Output: 6
-// displayOutput(multiply(2, 6)); // Output: 12
-// displayOutput(divide(10, 2)); // Output: 5
-// displayOutput(divide(10, 0)); // Output: Error: Division by zero
+function calculatemulti() {
+  // Get the selected option value
+  // userInput = document.getElementById('computation').value;
+  // number1, operator, number2 = processInput(unprocessed);
+  var selectedOption = document.getElementsByClassName("operatormulti");
+  var a = number1;
+  var b = number2;
+  var newop = operator;
+  console.log("Newop:", newop);
+  let result;
+  // Perform a function based on the selected option
+  if (newop === '+') {
+      result = add(a, b);
+  } else if (newop === '-') {
+      result = subtract(a, b);
+  } else if (newop === '*') {
+      result = multiply(a, b);
+  } else if (newop === '/') {
+      result = divide(a, b);
+      console.log(result);
 
-// second calculator
-var buttonvalues = [];
-var number2;
-var operator;
-var result;
+  }return result;}
+
+  calculatemulti();
+
+// You can also call someOtherFunction() directly if needed
+//someOtherFunction();
+
+
+// var nameInput = document.getElementById('name');
 
 // // button function on click display
 function display(button) {
@@ -96,14 +120,38 @@ function display(button) {
 
     // Update the value of the input element with the button text content
     var computationInput = document.getElementById('computation');
-    computationInput.value = buttonText;
-    // var currentText = computationInput.value;
-
-    // var newText = currentText + buttonText;
-
-    // // Update the value of the input element with the concatenated text
-    // computationInput.value = newText;
+    computationInput.value += buttonText;
+    userInput = computationInput.value;
+    
+    if (buttonText === '=') {
+        var buttonText = button.textContent;
+        computationInput.value = '';
+        // Perform the calculation
+        result = calculatemulti();
+        console.log(result);
+        // Display the result
+        computationInput.value = result;
+    }
   }
 
+function getOperator(expression) {
+  const operators = ['+', '-', '*', '/'];
+  for (let i = 0; i < operators.length; i++) {
+      if (expression.includes(operators[i])) {
+          const operator = operators[i].replace(/['"]+/g, '');
+          console.log("Operator:", operator);
+          return operator;
+      }
+  }
+}
+
+  function getNumber2(expression, operator) {
+    const number2 = expression.split(operator)[1];
+    console.log(number2);
+    return parseInt(number2);}
 
 
+function clear(button){
+  var computationInput = document.getElementById('computation');
+  document.getElementById("output").innerText = "";
+}

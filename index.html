@@ -5,52 +5,54 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1> Binary Operation Calculator</h1>
-    <div class="calculator">
-        <input type="text" id="num1" placeholder="Number 1">
-        <input type="text" id="num2" placeholder="Number 2">
+     </div>
 
-        <select id="operator" onchange="calculate()">
-            <option value="add">Add</option>
-            <option value="subtract">Subtract</option>
-            <option value="multiply">Multiply</option>
-            <option value="divide">Divide</option>
-        </select>
-        <button onclick="calculate()">Calculate</button>
-        <p>The answer is: <span id="output">0</span></p> </div>
-
-    <h1> Multi Operation Calculator</h1>
+    <h1>Calculator</h1>
         <div>
-            <input type="text" id="computation" placeholder="54 + 29">
+            <form class="userinput">
+                <label for="computation"></label>
+                <input type="text" id="computation" placeholder="54 + 29" required>
+                <button type="submit">=</button>
+            </form>
+
+            <form class="pure-form">
+                <input id="name" type="text" placeholder="Enter Name" />
+                <button type="submit"></button>
+            </form>
+    
+
+            <!-- <input type="text" id="computation" placeholder="54 + 29" onsubmit="return processInput()"> -->
+            <p>The answer is: <span id="output">0</span></p>
+
         </div> <br>
 
         <div class="grid">
-            <button onclick='display(this)'>1</button>
-            <button onclick='display(this)'>2</button>
-            <button onclick='display(this)'>3</button>
-            <button onclick='display(this)'>4</button>
-            <button onclick='display(this)'>5</button>
-            <button onclick='display(this)'>6</button>
-            <button onclick='display(this)'>7</button>
-            <button onclick='display(this)'>8</button>
-            <button onclick='display(this)'>9</button>
-            <button onclick='display(this)'>0</button>
-        </div>
+            <div>
+                <br>
+                <button onclick='display(this)'>1</button>
+                <button onclick='display(this)'>2</button>
+                <button onclick='display(this)'>3</button>
+                <button onclick='display(this)'>4</button>
+                <button onclick='display(this)'>5</button>
+                <button onclick='display(this)'>6</button>
+                <button onclick='display(this)'>7</button>
+                <button onclick='display(this)'>8</button>
+                <button onclick='display(this)'>9</button>
+                <button onclick='display(this)'>0</button>
+            </div>
 
-        <div>
-            <br>
-            <button>+</button>
-            <button>-</button>
-            <button>*</button>
-            <button>/</button><br><br>
-            <button onclick="calculate">=</button>
-        </div>
-
-        <div>
-            <br>
-            <button>Clear</button>
-        </div>
-
+            <div>
+                <br>
+                <button onclick="display(this)" class="operatormulti">+</button>
+                <button onclick="display(this)" class="operatormulti">-</button>
+                <button onclick="display(this)" class="operatormulti">*</button>
+                <button onclick="display(this)" class="operatormulti">/</button><br><br>
+            </div>
+            <!-- <button onclick="calculatemulti">=</button> -->
+            <div>
+                <br>
+                <button onclick="clear">Clear</button>
+            </div>
         <script src="script.js"></script>
 </body>
 </html>
