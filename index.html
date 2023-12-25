@@ -10,20 +10,21 @@
     <h1>Calculator</h1>
         <div>
             <form class="userinput">
+                <p><span id="output"></span></p>
                 <label for="computation"></label>
                 <input type="text" id="computation" placeholder="54 + 29" required>
                 <button type="submit">=</button>
                 <input type="reset" value="Clear" onclick="clearText()" id="clearzy"/>
-                <p><span id="output"></span></p>
+                <br>
             </form>
 
             <!-- <input type="text" id="computation" placeholder="54 + 29" onsubmit="return processInput()"> -->
 
-        </div> <br>
+        </div> 
 
         <div class="grid">
             <div>
-                <br>
+        
                 <button onclick='display(this)'>1</button>
                 <button onclick='display(this)'>2</button>
                 <button onclick='display(this)'>3</button>

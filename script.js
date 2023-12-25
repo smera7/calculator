@@ -28,7 +28,7 @@ function divide(a, b) {
       return zero_error;
   }
   result = a / b;
-  console.log("lalala", result);
+  console.log("result-lalala", result);
   return result;
 }
 
@@ -67,7 +67,7 @@ getOperator(tryInput);
 
 // Function to do something with the value outside the event listener
 function proccesing() {
-console.log("User entered:", tryInput);
+console.log("User entered:", tryInput); 
 var number1 = parseInt(tryInput);
 console.log("Number 1:", number1);
 operator = getOperator(tryInput);
@@ -75,8 +75,12 @@ console.log("OperatorZs:", operator);
 var number2 = getNumber2(tryInput, operator);
 
 calculatemulti(number1, number2, operator);
-console.log("these", number1, number2, operator);
+console.log("first expression separated", number1, number2, operator);
 
+//calculate multi 
+  document.getElementById("output").innerText = result;
+  recursive(tryInput, result, number1);
+};
 function calculatemulti(number1, number2, operator) {
   // Get the selected option value
   // userInput = document.getElementById('computation').value;
@@ -104,8 +108,36 @@ function calculatemulti(number1, number2, operator) {
   return result;
   };
   
-  document.getElementById("output").innerText = result;
-};
+
+function recursive(tryInput, result, number1) {
+  var operator = getOperator(tryInput);
+  var number1 = parseInt(tryInput);
+  //eliminate the result from the tryInput
+  tryInput = tryInput.replace(result, '');
+  // var number2 = getNumber1(tryInput, operator);
+
+  var number1 = result; //good
+
+  // now pop off the first 2 items in the string
+  // poppedInput = tryInput[0];
+  const [firstNumber, op, secondNumber] = tryInput.match(/(\d+)\s*([^\d\s]+)\s*(\d+)/).slice();
+  const remaining = tryInput.slice(tryInput.indexOf("", tryInput.indexOf(" ") + 1) + 1); // Select everything after the third space
+  console.log("poppedInput", firstNumber, op, secondNumber, remaining);
+
+
+  //now get number 2 to be the number 3
+  
+  console.log("recursive-pre", number1, number2, operator);
+  result  = calculatemulti(number1, number2, operator);
+  remove = [number1, operator, number2];
+  console.log("remove", remove);
+  tryInput.split("operator");
+  console.log("tryInputsplit", tryInput);
+  recursiveInput = tryInput.replace(remove, '');
+  console.log("recursiveInput", recursiveInput);
+  console.log("recursive-post", number1, number2, operator);
+  return result;};
+
 
 function getOperator(tryInput) {
   console.log("tryInput2:", tryInput);
