@@ -96,10 +96,13 @@ function calculatemulti(number1, number2, operator) {
       result = multiply(a, b);
   } else if (operator == ''/'') {
       result = divide(a, b);
-      console.log("resultomundo", result);
   
-  }return result;
+  }console.log("wackadoor", result);
+  return result;
   };
+
+  console.log("resultomundo", result);
+  document.getElementById("output").innerText = result;
 };
 
 function getOperator(tryInput) {
@@ -121,31 +124,6 @@ function getNumber2(tryInput, operator) {
   console.log("Number 2:", number2);
   return number2;
 };
-
-
-// console.log("Operator:", operator);
-// var number2 = getNumber2(tryInput, operator);
-// console.log("Number 2:", number2);
-
-// Perform a function based on the selected option
-// if (operator === '+') {
-//     result = add(number1, number2);
-// } else if (operator === '-') {
-//     result = subtract(number1, number2);
-// } else if (operator === '*') {
-//     result = multiply(number1, number2);
-// } else if (operator === '/') {
-//     result = divide(number1, number2);
-//     console.log(result);
-// }
-
-
-
-// You can also call someOtherFunction() directly if needed
-//someOtherFunction();
-
-
-// var nameInput = document.getElementById('name');
 
 // // button function on click display
 function display(button) {
@@ -176,5 +154,5 @@ function display(button) {
 
 function clear(button){
 var computationInput = document.getElementById('computation');
-document.getElementById("output").innerText = "";
+document.getElementById("output").innerText = result;
 }
