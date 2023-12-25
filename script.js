@@ -69,7 +69,38 @@ console.log("User entered:", tryInput);
 var number1 = parseInt(tryInput);
 console.log("Number 1:", number1);
 operator = getOperator(tryInput);
-var number2 = getNumber2(tryInput, operator);};
+console.log("OperatorZs:", operator);
+var number2 = getNumber2(tryInput, operator);
+
+calculatemulti(number1, number2, operator);
+console.log("these", number1, number2, operator);
+
+function calculatemulti(number1, number2, operator) {
+  // Get the selected option value
+  // userInput = document.getElementById('computation').value;
+  // number1, operator, number2 = processInput(unprocessed);
+  // var selectedOption = document.getElementsByClassName("operatormulti");
+  var a = number1;
+  var b = number2;
+
+  // var newop = operator;
+  console.log("Newop:", operator);
+  console.log(typeof(operator));
+  // Perform a function based on the selected option
+  if (operator == '+') {
+      result = add(a, b);
+  } else if (operator == '-') {
+      result = subtract(a, b);
+      console.log('subt', result);
+  } else if (operator =='*') {
+      result = multiply(a, b);
+  } else if (operator == ''/'') {
+      result = divide(a, b);
+      console.log("resultomundo", result);
+  
+  }return result;
+  };
+};
 
 function getOperator(tryInput) {
   console.log("tryInput2:", tryInput);
@@ -80,6 +111,7 @@ function getOperator(tryInput) {
   operator = matches[0];
 
   console.log("Operator:", operator);
+  return operator;
 };
 
 function getNumber2(tryInput, operator) {
@@ -107,34 +139,7 @@ function getNumber2(tryInput, operator) {
 //     console.log(result);
 // }
 
-console.log("tryinput1:", tryInput);
 
-proccesing();
-
-
-function calculatemulti() {
-// Get the selected option value
-// userInput = document.getElementById('computation').value;
-// number1, operator, number2 = processInput(unprocessed);
-var selectedOption = document.getElementsByClassName("operatormulti");
-var a = number1;
-var b = number2;
-// var newop = operator;
-console.log("Newop:", operator);
-// Perform a function based on the selected option
-if (operator === '+') {
-    result = add(a, b);
-} else if (operator === '-') {
-    result = subtract(a, b);
-} else if (operator === '*') {
-    result = multiply(a, b);
-} else if (operator === '/') {
-    result = divide(a, b);
-    console.log(result);
-
-}return result;}
-
-calculatemulti();
 
 // You can also call someOtherFunction() directly if needed
 //someOtherFunction();
