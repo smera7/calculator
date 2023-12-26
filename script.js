@@ -51,6 +51,13 @@ function calculatemulti(number1, number2, operator) {
 };
 
 function recursive(tryInput, result, number1) {
+
+  if (tryInput.length === 0) {
+    // Handle the base case (e.g., return a result or perform some final action)
+    console.log("Base case reached. Result:", result);
+    return result;
+  }
+  
   var operator = getOperator(tryInput);
   const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
   const match = tryInput.match(regex);
@@ -63,8 +70,7 @@ function recursive(tryInput, result, number1) {
     const updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
     operator = nextoperator;
     number2 = getNumber2(updatedExpression, operator);
-    var newww = calculatemulti(number1, number2, operator);
-  };
+  }
 };
 
 function getOperator(tryInput) {
