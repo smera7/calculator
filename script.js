@@ -134,9 +134,11 @@ function recursive(tryInput, result, number1) {
     const updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
     console.log("updatedExpression", updatedExpression);
 
-    operator = nextoperator;
+    // operator = nextoperator;
+    recursiveoperator = getOperator(updatedExpression);
+    number1 = parseInt(updatedExpression);
     number2 = getNumber2(updatedExpression, operator);
-    var newww = calculatemulti(number1, number2, operator);
+    var newww = calculatemulti(number1, number2, recursiveoperator);
     console.log("new", newww);
     };};
 
