@@ -1,284 +1,105 @@
-
 // Function to add two numbers
-function add(a, b) {
-  return a + b;
-}
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => (b === 0) ? 'Error: Division by zero' : a / b;
 
-// Function to subtract two numbers
-function subtract(a, b) {
-  return a - b;
-}
-
-// Function to multiply two numbers
-function multiply(a, b) {
-  return a * b;
-}
-
-// Function to divide two numbers
-function divide(a, b) {
-  if (b === 0) {
-      zero_error = 'Error: Division by zero';
-      return zero_error;
-  }
-  result = a / b;
-  console.log("result-lalala", result);
-  return result;
-}
-
-// console.log(add(2, 3));
 var computationInput = document.getElementById('computation');
 
 document.querySelector('form.userinput').addEventListener('submit', function (e) {
-
-  //prevent the normal submission of the form
   e.preventDefault();
-  console.log(computationInput.value); //makes sense up to HERE  
+  console.log(computationInput.value);
 });
 
-// let userInput = processInput();
-// console.log(userInput);
-const numericBtns = document.querySelectorAll(".digitz");
-let tempresult = 0;
-let operator = getOperator(computationInput.value);
-let nextinput = getNumber2(computationInput.value, operator);
+var number1;
+var number2;
+var operator;
+var result;
 
-tempresult += computationInput.value;
-console.log("tempresult", tempresult);
-tempresult = calculatemulti(tempresult, nextinput, operator);
-
-let tryInput; // Declare the variable at a global scopes
-
+let tryInput;
 
 document.querySelector('form.userinput').addEventListener('submit', function (e) {
-// Prevent the normal submission of the form
-e.preventDefault();
-
-// Access the input value using the declared variable
-tryInput = document.getElementById('computation').value;
-console.log("Inside event listener:", tryInput);
-
-// Call a function or execute code that needs the value
-proccesing(tryInput);
-getOperator(tryInput);
+  e.preventDefault();
+  tryInput = document.getElementById('computation').value;
+  proccesing();
+  getOperator(tryInput);
 });
 
-// Function to do something with the value outside the event listener
-
-function proccesing(tryInput) {
-// console.log("User entered:", tryInput); 
-var number1 = parseInt(tryInput);
-console.log("Number 1:", number1);
-operator = getOperator(tryInput);
-console.log("OperatorZs:", operator);
-var number2 = getNumber2(tryInput, operator);
-
-// calculatemulti(number1, number2, operator, tryInput);
-console.log("first expression separated", number1, number2, operator);
-
-//calculate multi 
+function proccesing() {
+  var number1 = parseInt(tryInput);
+  operator = getOperator(tryInput);
+  var number2 = getNumber2(tryInput, operator);
+  calculatemulti(number1, number2, operator);
   document.getElementById("output").innerText = result;
-  // recursive(tryInput, result, number1);
+  recursive(tryInput, result, number1);
 };
-// var result = 0;
-function calculatemulti(number1, number2, operator, input) {
 
-  // Get the selected option value
-  userInput = document.getElementById('computation').value;
-  number1, operator, number2 = proccesing(userInput);
-  var selectedOption = document.getElementsByClassName("operatormulti");
-
+function calculatemulti(number1, number2, operator) {
   var a = number1;
   var b = number2;
-
-  if (!input || typeof input !== 'string') {
-    return "Invalid input";
-}
-
-// Regular expression to match numbers and operators
-var regex = /(\d+|\+|\-|\*|\/)/g;
-var tokens = input.match(regex);
-
-if (!tokens) {
-    return "Invalid expression";
-}
-
-// Initialize result with the first number
-var result = parseFloat(tokens[0]);
-console.log("resultofregex", result);
-
-// Iterate through the tokens
-for (var i = 1; i < tokens.length; i += 2) {
-    var operator = tokens[i];
-    console.log("operatorregex", operator);
-    var operand = parseFloat(tokens[i + 1]);};
-    console.log("operandregex", operand);
-
-  // var newop = operator;
-  console.log("Newop:", operator);
-  // console.log(typeof(operator));
-  // Perform a function based on the selected option
   if (operator == '+') {
-      result = add(a, b);
+    result = add(a, b);
   } else if (operator == '-') {
-      result = subtract(a, b);
-  } else if (operator =='*') {
-      result = multiply(a, b);
-  } else if (operator == ''/'') {
-      result = divide(a, b);
-      console.log('div', result);
-  
-  }console.log("resultoutside", result);
+    result = subtract(a, b);
+  } else if (operator == '*') {
+    result = multiply(a, b);
+  } else if (operator == '/') {
+    result = divide(a, b);
+  }
+  console.log("Result:", result); // Add console.log to display the result
   return result;
+};
+
+function recursive(tryInput, result, number1) {
+  var operator = getOperator(tryInput);
+  const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
+  const match = tryInput.match(regex);
+  if (match) {
+    const leftOperand = match[1];
+    let operator = match[2];
+    const blah = match[3];
+    let nextoperator = match[4];
+    const remainingExpression = match[5];
+    const updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
+    operator = nextoperator;
+    number2 = getNumber2(updatedExpression, operator);
+    var newww = calculatemulti(number1, number2, operator);
   };
-  
-
-// function recursive(tryInput, result) {
-//   let operator = getOperator(tryInput);
-//   // let number1 = parseInt(tryInput);
-//   //eliminate the result from the tryInput
-//   // newInput = tryInput.replace(result, '');
-//   // let number2 = getNumber1(tryInput, operator);
-//   console.log("recursive", number1, number2, result, operator);
-//   var number1 = result; //good
-//   // break expression
-//   // let regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
-//   // let regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
-//   let regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
-//   let match = tryInput.match(regex);
-//   let updatedExpression = tryInput;
-
-//   if (match) {
-//     let leftOperand = match[1];
-//     let operator = match[2];
-//     let blah = match[3];
-//     let nextoperator = match[4];
-//     console.log("nextoperator", nextoperator);
-//     let remainingExpression = match[5];
-
-//     // Replace the first part of the expression with the result
-//     updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
-//     console.log("updatedExpression", updatedExpression);
-
-//     // operator = nextoperator;
-//     let recursiveoperator = getOperator(updatedExpression);
-//     number1 = parseInt(updatedExpression);
-//     number2 = getNumber2(updatedExpression, operator);
-//     let result = calculatemulti(number1, number2, recursiveoperator);
-//     console.log("new2", newww);
-
-//     //make recursive call
-
-//     recursive(updatedExpression, result);
-
-//     //break if base case
-//     if (updatedExpression.length == 0) {
-//       return result;};
-//     };};
-
-
-    // recursive(updatedExpression, result, number1);
-
-  //replace first 2 numbers with result
-
-
-  // now pop off the first 2 items in the string
-  // poppedInput = tryInput[0];
-  // const [firstexp, seconde, op] = tryInput.match(/(\d+)\s*([^\d\s]+)\s*(\d+)/).slice();
-  // console.log("tryInput", tryInput);
-  // const remaining = tryInput.slice(tryInput.indexOf("", tryInput.indexOf(" ") + 1) + 1); // Select everything after the third space
-  // console.log("poppedInput", firstexp, seconde, op);
-  // console.log("remaining", remaining);
-
-  // OppoppedInput = tryInput.replace(firstexp, '');
-  // console.log("poppedInputty", OppoppedInput); //we want this, it is everything but the first expression
-  // poppedInput = OppoppedInput.slice(0);
-  // console.log("poppedInput", poppedInput);
-  // number2 = parseInt(poppedInput);
-  // console.log("number2eee", number2);
-
-
-
-  // recursive(modifiedInput, result, number1);
-
-  // result = calculatemulti(number1, number2, operator);
-
-
-  
-  //now get number 2 to be the number 3
-
-
-  
-  // console.log("recursive-pre", number1, number2, operator);
-  // result  = calculatemulti(number1, number2, operator);
-  // remove = [number1, operator, number2];
-  // console.log("remove", remove);
-  // tryInput.split("operator");
-  // console.log("tryInputsplit", tryInput);
-  // recursiveInput = tryInput.replace(remove, '');
-  // console.log("recursiveInput", recursiveInput);
-  // console.log("recursive-post", number1, number2, operator);
-
+};
 
 function getOperator(tryInput) {
-  console.log("tryInput2:", tryInput);
-    // operator = tryInput.split("")[1];
   const matches = tryInput.match(/[+\-*/]/g);
-  console.log(matches); // Output: ["+", "*", "/", "-"]
-  // console.log(typeof(matches)); // Output: object
-  // operator = matches[0];
-  if (matches && matches.length > 0) {
-    const operator = matches[0];
-    console.log("Operator:", operator);
-    return operator;
-  } else {
-    console.log("No operator found in tryInput");
-    return null; // Or any other default value you want to return
-  }
+  operator = matches[0];
+  return operator;
 };
 
 function getNumber2(tryInput, operator) {
   number2 = tryInput.split(/[+\-*/]/g)[1];
   parseInt(number2);
   number2 = Number(number2);
-  console.log("Number 2:", number2);
   return number2;
 };
 
-// // button function on click display
 function display(button) {
-  // Get the text content of the clicked button
   var buttonText = button.textContent;
-
-  // Update the value of the input element with the button text content
   var computationInput = document.getElementById('computation');
   computationInput.value += buttonText;
   userInput = computationInput.value;
-  
   if (buttonText === '=') {
-      var buttonText = button.textContent;
-      computationInput.value = '';
-      // Perform the calculation
-      result = calculatemulti();
-      console.log(result);
-      // Display the result
-      computationInput.value = result;
+    var buttonText = button.textContent;
+    computationInput.value = '';
+    result = calculatemulti();
+    computationInput.value = result;
   }
 }
 
-// document.querySelectorAll('.digitz').forEach(item => {
-//   item.addEventListener('click', event => {
-//       updateOperands(item.textContent)
-//   })
-// })
+function clearText() {
+  document.getElementById('output').value = " ";
+  document.getElementById('computation').value = "";
+}
 
+const outputSpan = document.getElementById("output");
 
-function clearText()  
-{
-    document.getElementById('output').value = " ";
-    document.getElementById('computation').value = "";}  
-
-    const outputSpan = document.getElementById("output");
-
-    clearzy.addEventListener("click", () => {
-      outputSpan.textContent = ""; // Clear the text content of the span
-    });
+clearzy.addEventListener("click", () => {
+  outputSpan.textContent = "";
+});
