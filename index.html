@@ -13,6 +13,7 @@
                 <p><span id="output"></span></p>
                 <label for="computation"></label>
                 <input type="text" id="computation" placeholder="54 + 29" required>
+                <span id="firstOperand"></span> <span id="operator"></span> <span id="secondOperand"></span>
                 <button type="submit">=</button>
                 <input type="reset" value="Clear" onclick="clearText()" id="clearzy"/>
                 <br>
@@ -22,19 +23,25 @@
 
         </div> 
 
+        <!-- <div class="calculator-display">
+            <div class="previous-operand">3214</div>
+            <div class="current-operand">324324</div>
+          </div> -->
+      
+
         <div class="grid">
             <div>
         
-                <button onclick='display(this)'>1</button>
-                <button onclick='display(this)'>2</button>
-                <button onclick='display(this)'>3</button>
-                <button onclick='display(this)'>4</button>
-                <button onclick='display(this)'>5</button>
-                <button onclick='display(this)'>6</button>
-                <button onclick='display(this)'>7</button>
-                <button onclick='display(this)'>8</button>
-                <button onclick='display(this)'>9</button>
-                <button onclick='display(this)'>0</button>
+                <button onclick='display(this)' class='digitz'>1</button>
+                <button onclick='display(this)' class='digitz'>2</button>
+                <button onclick='display(this)' class='digitz'>3</button>
+                <button onclick='display(this)' class='digitz'>4</button>
+                <button onclick='display(this)' class='digitz'>5</button>
+                <button onclick='display(this)' class='digitz'>6</button>
+                <button onclick='display(this)' class='digitz'>7</button>
+                <button onclick='display(this)' class='digitz'>8</button>
+                <button onclick='display(this)' class='digitz'>9</button>
+                <button onclick='display(this)' class='digitz'>0</button>
             </div>
 
             <div>

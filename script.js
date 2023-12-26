@@ -1,10 +1,3 @@
-// const { get } = require("http");
-
-// const { type } = require("os");
-
-// const { get } = require("http");
-
-// const { get } = require("http");
 
 // Function to add two numbers
 function add(a, b) {
@@ -39,15 +32,37 @@ document.querySelector('form.userinput').addEventListener('submit', function (e)
 
   //prevent the normal submission of the form
   e.preventDefault();
-  console.log(computationInput.value);    
+  console.log(computationInput.value); //makes sense up to HERE  
 });
 
 // let userInput = processInput();
 // console.log(userInput);
-var number1;
-var number2;
-var operator;
-var result;
+
+let tempresult = '';
+let operator = getOperator(computationInput.value);
+let nextinput = getNumber2(computationInput.value, operator);
+
+tempresult = computationInput.value;
+tempresult = calculatemulti(tempresult, nextinput, operator);
+console.log("tempresult", tempresult);
+
+// currentOperand.textContent = 0;
+
+
+// numberButton.forEach((digitz) => {
+//   digitz.addEventListener('click', function() {
+//     storedNumber += digitz.value;
+//     currentOperand.textContent = storedNumber;
+//     console.log("lol",storedNumber);
+//   })
+// });
+
+// const firstOperandSpan = document.getElementById('firstOperand');
+// console.log("firstOperandSpan", firstOperandSpan);
+// const operatorSpan = document.getElementById('operator');
+// operatorSpan.textContent = value;
+// console.log("operatorSpan", operatorSpan);
+// const secondOperandSpan = document.getElementById('secondOperand');
 
 let tryInput; // Declare the variable at a global scopes
 
@@ -79,8 +94,9 @@ console.log("first expression separated", number1, number2, operator);
 
 //calculate multi 
   document.getElementById("output").innerText = result;
-  recursive(tryInput, result, number1);
+  // recursive(tryInput, result, number1);
 };
+var result = 0;
 function calculatemulti(number1, number2, operator) {
   // Get the selected option value
   // userInput = document.getElementById('computation').value;
@@ -97,50 +113,59 @@ function calculatemulti(number1, number2, operator) {
       result = add(a, b);
   } else if (operator == '-') {
       result = subtract(a, b);
-      console.log('subt', result);
   } else if (operator =='*') {
       result = multiply(a, b);
   } else if (operator == ''/'') {
       result = divide(a, b);
       console.log('div', result);
   
-  }console.log("wackadoor", result);
+  }console.log("resultoutside", result);
   return result;
   };
   
 
-function recursive(tryInput, result, number1) {
-  var operator = getOperator(tryInput);
-  var number1 = parseInt(tryInput);
-  //eliminate the result from the tryInput
-  // newInput = tryInput.replace(result, '');
-  // var number2 = getNumber1(tryInput, operator);
-  console.log("recursive", number1, number2, result, operator);
-  var number1 = result; //good
-  // break expression
-  // const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
-  // const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
-  const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
-  const match = tryInput.match(regex);
-  if (match) {
-    const leftOperand = match[1];
-    const operator = match[2];
-    const blah = match[3];
-    let nextoperator = match[4];
-    console.log("nextoperator", nextoperator);
-    const remainingExpression = match[5];
+// function recursive(tryInput, result) {
+//   let operator = getOperator(tryInput);
+//   // let number1 = parseInt(tryInput);
+//   //eliminate the result from the tryInput
+//   // newInput = tryInput.replace(result, '');
+//   // let number2 = getNumber1(tryInput, operator);
+//   console.log("recursive", number1, number2, result, operator);
+//   var number1 = result; //good
+//   // break expression
+//   // let regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
+//   // let regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
+//   let regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
+//   let match = tryInput.match(regex);
+//   let updatedExpression = tryInput;
 
-    // Replace the first part of the expression with the result
-    const updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
-    console.log("updatedExpression", updatedExpression);
+//   if (match) {
+//     let leftOperand = match[1];
+//     let operator = match[2];
+//     let blah = match[3];
+//     let nextoperator = match[4];
+//     console.log("nextoperator", nextoperator);
+//     let remainingExpression = match[5];
 
-    // operator = nextoperator;
-    recursiveoperator = getOperator(updatedExpression);
-    number1 = parseInt(updatedExpression);
-    number2 = getNumber2(updatedExpression, operator);
-    var newww = calculatemulti(number1, number2, recursiveoperator);
-    console.log("new", newww);
-    };};
+//     // Replace the first part of the expression with the result
+//     updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
+//     console.log("updatedExpression", updatedExpression);
+
+//     // operator = nextoperator;
+//     let recursiveoperator = getOperator(updatedExpression);
+//     number1 = parseInt(updatedExpression);
+//     number2 = getNumber2(updatedExpression, operator);
+//     let result = calculatemulti(number1, number2, recursiveoperator);
+//     console.log("new2", newww);
+
+//     //make recursive call
+
+//     recursive(updatedExpression, result);
+
+//     //break if base case
+//     if (updatedExpression.length == 0) {
+//       return result;};
+//     };};
 
 
     // recursive(updatedExpression, result, number1);
@@ -190,12 +215,17 @@ function getOperator(tryInput) {
   console.log("tryInput2:", tryInput);
     // operator = tryInput.split("")[1];
   const matches = tryInput.match(/[+\-*/]/g);
-  // console.log(matches); // Output: ["+", "*", "/", "-"]
+  console.log(matches); // Output: ["+", "*", "/", "-"]
   // console.log(typeof(matches)); // Output: object
-  operator = matches[0];
-
-  console.log("Operator:", operator);
-  return operator;
+  // operator = matches[0];
+  if (matches && matches.length > 0) {
+    const operator = matches[0];
+    console.log("Operator:", operator);
+    return operator;
+  } else {
+    console.log("No operator found in tryInput");
+    return null; // Or any other default value you want to return
+  }
 };
 
 function getNumber2(tryInput, operator) {
@@ -227,11 +257,12 @@ function display(button) {
   }
 }
 
+// document.querySelectorAll('.digitz').forEach(item => {
+//   item.addEventListener('click', event => {
+//       updateOperands(item.textContent)
+//   })
+// })
 
-// function clear(){
-// document.getElementById("computation").value = ' ';
-// // document.getElementById("output").innerText = result;
-// }
 
 function clearText()  
 {
