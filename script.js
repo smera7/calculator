@@ -6,10 +6,10 @@ const divide = (a, b) => (b === 0) ? 'Error: Division by zero' : a / b;
 
 var computationInput = document.getElementById('computation');
 
-document.querySelector('form.userinput').addEventListener('submit', function (e) {
-  e.preventDefault();
-  console.log(computationInput.value);
-});
+// document.querySelector('form.userinput').addEventListener('submit', function (e) {
+//   e.preventDefault();
+//   console.log("firstsubmit", computationInput.value);
+// });
 
 var number1;
 var number2;
@@ -30,7 +30,7 @@ function proccesing() {
   operator = getOperator(tryInput);
   var number2 = getNumber2(tryInput, operator);
   calculatemulti(number1, number2, operator);
-  document.getElementById("output").innerText = result;
+  // document.getElementById("output").innerText = result;
   recursive(tryInput, result, number1);
 };
 
@@ -51,8 +51,7 @@ function calculatemulti(number1, number2, operator) {
 };
 
 function recursive(tryInput, result, number1) {
-
-  if (tryInput.length === 0) {
+  if (!tryInput || tryInput.length === 0) {
     // Handle the base case (e.g., return a result or perform some final action)
     console.log("Base case reached. Result:", result);
     return result;
@@ -68,10 +67,21 @@ function recursive(tryInput, result, number1) {
     let nextoperator = match[4];
     const remainingExpression = match[5];
     const updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
+    console.log("Updated expression:", updatedExpression);
     operator = nextoperator;
+    console.log("nextOperator:", operator);
+    number1 = parseInt(updatedExpression);
+    console.log("number1:", number1);
     number2 = getNumber2(updatedExpression, operator);
+    resultcalcmulti = calculatemulti(number1, number2, operator);
+    console.log("Resultcalcmulti:", result);
+    recursive(updatedExpression, resultcalcmulti, number1);
+    document.getElementById("output").innerText = resultcalcmulti;
+
   }
 };
+
+recursive(tryInput, result, number1);
 
 function getOperator(tryInput) {
   const matches = tryInput.match(/[+\-*/]/g);
@@ -86,18 +96,40 @@ function getNumber2(tryInput, operator) {
   return number2;
 };
 
+// function display(button) {
+//   var buttonText = button.textContent;
+//   var computationInput = document.getElementById('computation');
+//   computationInput.value += buttonText;
+//   userInput = computationInput.value;
+//   if (buttonText === '=' || buttonText == '+' || buttonText == '-' || buttonText == '*' || buttonText == '/') {
+//     var buttonText = button.textContent;
+//     computationInput.value = '';
+//     result = calculatemulti();
+//     computationInput.value = result;
+//   }}
+
 function display(button) {
-  var buttonText = button.textContent;
   var computationInput = document.getElementById('computation');
-  computationInput.value += buttonText;
-  userInput = computationInput.value;
-  if (buttonText === '=') {
-    var buttonText = button.textContent;
-    computationInput.value = '';
-    result = calculatemulti();
+
+  if (result === '=') {
     computationInput.value = result;
+  } 
+  // else {
+  //   computationInput.value += result;
   }
-}
+
+// function display(button) {
+//   var buttonText = button.textContent;
+//   var computationInput = document.getElementById('computation');
+//   computationInput.value += buttonText;
+//   userInput = computationInput.value;
+//   if (buttonText === '=') {
+//     var buttonText = button.textContent;
+//     computationInput.value = '';
+//     result = calculatemulti();
+//     computationInput.value = result;
+//   }
+// }
 
 function clearText() {
   document.getElementById('output').value = " ";
