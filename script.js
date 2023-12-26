@@ -37,32 +37,14 @@ document.querySelector('form.userinput').addEventListener('submit', function (e)
 
 // let userInput = processInput();
 // console.log(userInput);
-
-let tempresult = '';
+const numericBtns = document.querySelectorAll(".digitz");
+let tempresult = 0;
 let operator = getOperator(computationInput.value);
 let nextinput = getNumber2(computationInput.value, operator);
 
-tempresult = computationInput.value;
-tempresult = calculatemulti(tempresult, nextinput, operator);
+tempresult += computationInput.value;
 console.log("tempresult", tempresult);
-
-// currentOperand.textContent = 0;
-
-
-// numberButton.forEach((digitz) => {
-//   digitz.addEventListener('click', function() {
-//     storedNumber += digitz.value;
-//     currentOperand.textContent = storedNumber;
-//     console.log("lol",storedNumber);
-//   })
-// });
-
-// const firstOperandSpan = document.getElementById('firstOperand');
-// console.log("firstOperandSpan", firstOperandSpan);
-// const operatorSpan = document.getElementById('operator');
-// operatorSpan.textContent = value;
-// console.log("operatorSpan", operatorSpan);
-// const secondOperandSpan = document.getElementById('secondOperand');
+tempresult = calculatemulti(tempresult, nextinput, operator);
 
 let tryInput; // Declare the variable at a global scopes
 
@@ -76,34 +58,60 @@ tryInput = document.getElementById('computation').value;
 console.log("Inside event listener:", tryInput);
 
 // Call a function or execute code that needs the value
-proccesing();
+proccesing(tryInput);
 getOperator(tryInput);
 });
 
 // Function to do something with the value outside the event listener
-function proccesing() {
-console.log("User entered:", tryInput); 
+
+function proccesing(tryInput) {
+// console.log("User entered:", tryInput); 
 var number1 = parseInt(tryInput);
 console.log("Number 1:", number1);
 operator = getOperator(tryInput);
 console.log("OperatorZs:", operator);
 var number2 = getNumber2(tryInput, operator);
 
-calculatemulti(number1, number2, operator);
+// calculatemulti(number1, number2, operator, tryInput);
 console.log("first expression separated", number1, number2, operator);
 
 //calculate multi 
   document.getElementById("output").innerText = result;
   // recursive(tryInput, result, number1);
 };
-var result = 0;
-function calculatemulti(number1, number2, operator) {
+// var result = 0;
+function calculatemulti(number1, number2, operator, input) {
+
   // Get the selected option value
-  // userInput = document.getElementById('computation').value;
-  // number1, operator, number2 = processInput(unprocessed);
-  // var selectedOption = document.getElementsByClassName("operatormulti");
+  userInput = document.getElementById('computation').value;
+  number1, operator, number2 = proccesing(userInput);
+  var selectedOption = document.getElementsByClassName("operatormulti");
+
   var a = number1;
   var b = number2;
+
+  if (!input || typeof input !== 'string') {
+    return "Invalid input";
+}
+
+// Regular expression to match numbers and operators
+var regex = /(\d+|\+|\-|\*|\/)/g;
+var tokens = input.match(regex);
+
+if (!tokens) {
+    return "Invalid expression";
+}
+
+// Initialize result with the first number
+var result = parseFloat(tokens[0]);
+console.log("resultofregex", result);
+
+// Iterate through the tokens
+for (var i = 1; i < tokens.length; i += 2) {
+    var operator = tokens[i];
+    console.log("operatorregex", operator);
+    var operand = parseFloat(tokens[i + 1]);};
+    console.log("operandregex", operand);
 
   // var newop = operator;
   console.log("Newop:", operator);
