@@ -91,7 +91,7 @@ function calculatemulti(number1, number2, operator) {
 
   // var newop = operator;
   console.log("Newop:", operator);
-  console.log(typeof(operator));
+  // console.log(typeof(operator));
   // Perform a function based on the selected option
   if (operator == '+') {
       result = add(a, b);
@@ -113,38 +113,83 @@ function recursive(tryInput, result, number1) {
   var operator = getOperator(tryInput);
   var number1 = parseInt(tryInput);
   //eliminate the result from the tryInput
-  tryInput = tryInput.replace(result, '');
+  // newInput = tryInput.replace(result, '');
   // var number2 = getNumber1(tryInput, operator);
-
+  console.log("recursive", number1, number2, result, operator);
   var number1 = result; //good
+  // break expression
+  // const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
+  // const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
+  const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
+  const match = tryInput.match(regex);
+  if (match) {
+    const leftOperand = match[1];
+    const operator = match[2];
+    const blah = match[3];
+    let nextoperator = match[4];
+    console.log("nextoperator", nextoperator);
+    const remainingExpression = match[5];
+
+    // Replace the first part of the expression with the result
+    const updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
+    console.log("updatedExpression", updatedExpression);
+
+    operator = nextoperator;
+    number2 = getNumber2(updatedExpression, operator);
+    var newww = calculatemulti(number1, number2, operator);
+    console.log("new", newww);
+    };};
+
+
+    // recursive(updatedExpression, result, number1);
+
+  //replace first 2 numbers with result
+
 
   // now pop off the first 2 items in the string
   // poppedInput = tryInput[0];
-  const [firstNumber, op, secondNumber] = tryInput.match(/(\d+)\s*([^\d\s]+)\s*(\d+)/).slice();
-  const remaining = tryInput.slice(tryInput.indexOf("", tryInput.indexOf(" ") + 1) + 1); // Select everything after the third space
-  console.log("poppedInput", firstNumber, op, secondNumber, remaining);
+  // const [firstexp, seconde, op] = tryInput.match(/(\d+)\s*([^\d\s]+)\s*(\d+)/).slice();
+  // console.log("tryInput", tryInput);
+  // const remaining = tryInput.slice(tryInput.indexOf("", tryInput.indexOf(" ") + 1) + 1); // Select everything after the third space
+  // console.log("poppedInput", firstexp, seconde, op);
+  // console.log("remaining", remaining);
+
+  // OppoppedInput = tryInput.replace(firstexp, '');
+  // console.log("poppedInputty", OppoppedInput); //we want this, it is everything but the first expression
+  // poppedInput = OppoppedInput.slice(0);
+  // console.log("poppedInput", poppedInput);
+  // number2 = parseInt(poppedInput);
+  // console.log("number2eee", number2);
 
 
-  //now get number 2 to be the number 3
+
+  // recursive(modifiedInput, result, number1);
+
+  // result = calculatemulti(number1, number2, operator);
+
+
   
-  console.log("recursive-pre", number1, number2, operator);
-  result  = calculatemulti(number1, number2, operator);
-  remove = [number1, operator, number2];
-  console.log("remove", remove);
-  tryInput.split("operator");
-  console.log("tryInputsplit", tryInput);
-  recursiveInput = tryInput.replace(remove, '');
-  console.log("recursiveInput", recursiveInput);
-  console.log("recursive-post", number1, number2, operator);
-  return result;};
+  //now get number 2 to be the number 3
+
+
+  
+  // console.log("recursive-pre", number1, number2, operator);
+  // result  = calculatemulti(number1, number2, operator);
+  // remove = [number1, operator, number2];
+  // console.log("remove", remove);
+  // tryInput.split("operator");
+  // console.log("tryInputsplit", tryInput);
+  // recursiveInput = tryInput.replace(remove, '');
+  // console.log("recursiveInput", recursiveInput);
+  // console.log("recursive-post", number1, number2, operator);
 
 
 function getOperator(tryInput) {
   console.log("tryInput2:", tryInput);
     // operator = tryInput.split("")[1];
   const matches = tryInput.match(/[+\-*/]/g);
-  console.log(matches); // Output: ["+", "*", "/", "-"]
-  console.log(typeof(matches)); // Output: object
+  // console.log(matches); // Output: ["+", "*", "/", "-"]
+  // console.log(typeof(matches)); // Output: object
   operator = matches[0];
 
   console.log("Operator:", operator);
