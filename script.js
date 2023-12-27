@@ -18,53 +18,66 @@ var result;
 
 let tryInput;
 
-// document.querySelectorAll('.digitz').forEach(function(button) {
-//   button.addEventListener('click', function(e) {
-//     e.preventDefault();
-//     var computationInput = document.getElementById('computation');
-//     var buttonText = button.textContent;
+document.querySelectorAll('.digitz').forEach(function(button) {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    var computationInput = document.getElementById('computation');
+    var buttonText = button.textContent;
 
-//     // Check if the input value is empty or the current input value starts with a digit
+    // Check if the input value is empty or the current input value starts with a digit
+    // if (computationInput.value === '' || /^\d/.test(computationInput.value)) {
+    //   // computationInput.value += buttonText;
+    //   console.log("Number is the first");
+    // } else {
+    //   // Handle the case when the number is not the first
+    //   console.log("Number is not the first");
+    //   tryInput = computationInput.value;
+    //   proccesing();
+    //   getOperator(tryInput);
+    //   result = calculatemulti(number1, number2, operator);
+
+    //   // Display result as it's calculated
+    //   document.getElementById("output").innerText = result;
+    // }
+  if (computationInput.value === '' || /[+\-*/]\d/.test(computationInput.value)) {
+    // computationInput.value += buttonText;
+    console.log("Number is not the first");
+    e.preventDefault();
+    tryInput = document.getElementById('computation').value;
+    proccesing();
+    // getOperator(tryInput);
+    result = calculatemulti(number1, number2, operator);
+    document.getElementById("output").innerText = result;
+  } else {
+    console.log("Number is the first");
+    // Your logic for the case when the number is not the first
+  }
+  });
+});
+
+// document.querySelectorAll('.digitz').forEach(function (button) {
+//   button.addEventListener('click', function (e) {
+//     e.preventDefault();
+
+//     var buttonText = button.textContent;
+//     var computationInput = document.getElementById('computation');
+
 //     if (computationInput.value === '' || /^\d/.test(computationInput.value)) {
+//       // If the input is empty or the last character is a digit
 //       // computationInput.value += buttonText;
 //       console.log("Number is the first");
 //     } else {
-//       // Handle the case when the number is not the first
+//       // If the last character is not a digit, handle it as needed
 //       console.log("Number is not the first");
-//       tryInput = computationInput.value;
+//       tryInput = document.getElementById('computation').value;
 //       proccesing();
 //       getOperator(tryInput);
 //       result = calculatemulti(number1, number2, operator);
-
-//       // Display result as it's calculated
-//       document.getElementById("output").innerText = result;
+//       document.getElementById("output").innerText = result; // Display the result
+//       resultDisplayed = true;
 //     }
 //   });
 // });
-
-document.querySelectorAll('.digitz').forEach(function (button) {
-  button.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    var buttonText = button.textContent;
-    var computationInput = document.getElementById('computation');
-
-    if (computationInput.value === '' || /^\d/.test(computationInput.value)) {
-      // If the input is empty or the last character is a digit
-      // computationInput.value += buttonText;
-      console.log("Number is the first");
-    } else {
-      // If the last character is not a digit, handle it as needed
-      console.log("Number is not the first");
-      tryInput = document.getElementById('computation').value;
-      proccesing();
-      getOperator(tryInput);
-      result = calculatemulti(number1, number2, operator);
-      document.getElementById("output").innerText = result; // Display the result
-      resultDisplayed = true;
-    }
-  });
-});
 
 
 function isOperator(text) {
@@ -147,10 +160,10 @@ function recursive(tryInput, result, number1) {
 recursive(tryInput, result, number1);
 
 function getOperator(tryInput) {
-  const matches = tryInput.match(/[+\-*/]/g);
-  operator = matches[0];
-  return operator;
-};
+const matches = tryInput.match(/[+\-*/]/g);
+operator = matches ? matches[0] : null;
+return operator;
+}
 
 function getNumber2(tryInput, operator) {
   number2 = tryInput.split(/[+\-*/]/g)[1];
