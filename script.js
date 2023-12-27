@@ -219,4 +219,8 @@ const outputSpan = document.getElementById("output");
 
 clearzy.addEventListener("click", () => {
   outputSpan.textContent = "";
+  // reset all variables
+  localStorage.clear();
+  sessionStorage.clear();
+  location.reload();
 });

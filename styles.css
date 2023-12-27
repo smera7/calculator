@@ -17,3 +17,98 @@
 .calculator-display {
     grid-column: 1 / -1;
   }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 40px);
+    grid-template-rows: repeat(4, 40px);
+    border: #000 1px solid;
+    /* fill */
+    grid-gap: 10px;
+    margin: 20px;
+    justify-content: center;
+    grid-template-areas: 
+    "seven eight nine plus" 
+    "four five six minus" 
+    "one two three multiply" 
+    "zero zero dot divide"
+}
+
+#nine {
+    grid-area: nine;
+}  
+
+#eight {
+    grid-area: eight;
+}
+
+#seven {
+    grid-area: seven;
+}
+
+#+ {
+    grid-area: plus;
+}
+
+#six {
+    grid-area: six;
+}
+
+#five {
+    grid-area: five;
+}
+
+#four {
+    grid-area: four;
+}
+
+#- {
+    grid-area: minus;
+}
+
+#three {
+    grid-area: three;
+}
+
+#two {
+    grid-area: two;
+}
+
+#one {
+    grid-area: one;
+}
+
+#* {
+    grid-area: multiply;
+}
+
+#zero {
+    grid-area: zero;
+}
+
+.computation {
+}
+
+.grid > div {
+    border: 1px solid #000;
+}
+.digitz {
+    font-size: 30px;
+    border-radius: 5px;
+
+}
+
+.operatormulti {
+    font-size: 30px;
+    border-radius: 5px;
+}
+
+#form {
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}

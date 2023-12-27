@@ -6,13 +6,11 @@
 </head>
 <body>
      </div>
-
-    <h1>Calculator</h1>
-        <div>
+        <div id = "form">
             <form class="userinput">
                 <p><span id="output"></span></p>
                 <label for="computation"></label>
-                <input type="text" id="computation" placeholder="54 + 29" required>
+                <input type="text" id="computation" placeholder="54 + 29" style="width: 125px;" required >
                 <span id="firstOperand"></span> <span id="operator"></span> <span id="secondOperand"></span>
                 <button type="submit">=</button>
                 <input type="reset" value="Clear" id="clearzy"/> 
@@ -24,32 +22,24 @@
       
 
         <div class="grid">
-            <div>
         
-                <button onclick='display(this)' class='digitz' type='digitz'>1</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>2</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>3</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>4</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>5</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>6</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>7</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>8</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>9</button>
-                <button onclick='display(this)' class='digitz' type='digitz'>0</button>
-            </div>
+                <button onclick='display(this)' class='digitz' type='digitz' id='seven'>7</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='eight'>8</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='nine'>9</button>
+                <button onclick="display(this)" class="operatormulti" id="add">+</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='four'>4</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='five'>5</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='six'>6</button>
+                <button onclick="display(this)" class="operatormulti" id="subtract">-</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='one'>1</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='two'>2</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='three'>3</button>
+                <button onclick="display(this)" class="operatormulti" id="multiply">*</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='zero'>0</button>
+                <button onclick='display(this)' class='digitz' type='digitz' id='decimal'>.</button>
+                <button onclick="display(this)" class="operatormulti" id="divide">/</button><br><br>
 
-            <div>
-                <br>
-                <button onclick="display(this)" class="operatormulti">+</button>
-                <button onclick="display(this)" class="operatormulti">-</button>
-                <button onclick="display(this)" class="operatormulti">*</button>
-                <button onclick="display(this)" class="operatormulti">/</button><br><br>
-            </div>
-            <!-- <button onclick="calculatemulti">=</button> -->
-            <div>
-                <br>
-                <button onclick="clear();">Clear</button>
-            </div>
+        </div>
         <script src="script.js"></script>
 </body>
 </html>
