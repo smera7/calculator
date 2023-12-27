@@ -110,13 +110,13 @@ function getNumber2(tryInput, operator) {
 
 function display(button) {
   var computationInput = document.getElementById('computation');
-
   if (result === '=') {
     computationInput.value = result;
   } 
-  // else {
-  //   computationInput.value += result;
-  }
+  else {
+    buttonText = button.textContent;
+    computationInput.value += buttonText;
+  };}
 
 // function display(button) {
 //   var buttonText = button.textContent;
