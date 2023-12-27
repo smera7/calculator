@@ -39,7 +39,9 @@ document.querySelectorAll('.digitz').forEach(function(button) {
     //   // Display result as it's calculated
     //   document.getElementById("output").innerText = result;
     // }
-  if (computationInput.value === '' || /[+\-*/]\d/.test(computationInput.value)) {
+
+    //save REGEX /[+\-*/]\d+/
+  if (computationInput.value === '' || /[+\-*/]\d+[+\-*/]/.test(computationInput.value)) {
     // computationInput.value += buttonText;
     console.log("Number is not the first");
     e.preventDefault();
