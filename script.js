@@ -18,6 +18,65 @@ var result;
 
 let tryInput;
 
+// document.querySelectorAll('.digitz').forEach(function(button) {
+//   button.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     var computationInput = document.getElementById('computation');
+//     var buttonText = button.textContent;
+
+//     // Check if the input value is empty or the current input value starts with a digit
+//     if (computationInput.value === '' || /^\d/.test(computationInput.value)) {
+//       // computationInput.value += buttonText;
+//       console.log("Number is the first");
+//     } else {
+//       // Handle the case when the number is not the first
+//       console.log("Number is not the first");
+//       tryInput = computationInput.value;
+//       proccesing();
+//       getOperator(tryInput);
+//       result = calculatemulti(number1, number2, operator);
+
+//       // Display result as it's calculated
+//       document.getElementById("output").innerText = result;
+//     }
+//   });
+// });
+
+document.querySelectorAll('.digitz').forEach(function (button) {
+  button.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    var buttonText = button.textContent;
+    var computationInput = document.getElementById('computation');
+
+    if (computationInput.value === '' || /^\d/.test(computationInput.value)) {
+      // If the input is empty or the last character is a digit
+      // computationInput.value += buttonText;
+      console.log("Number is the first");
+    } else {
+      // If the last character is not a digit, handle it as needed
+      console.log("Number is not the first");
+      tryInput = document.getElementById('computation').value;
+      proccesing();
+      getOperator(tryInput);
+      result = calculatemulti(number1, number2, operator);
+      document.getElementById("output").innerText = result; // Display the result
+      resultDisplayed = true;
+    }
+  });
+});
+
+
+function isOperator(text) {
+  // Add your logic to determine if the text is an operator
+  return text === '+' || text === '-' || text === '*' || text === '/';
+}
+
+// Initialize resultDisplayed flag
+var resultDisplayed = false;
+
+
+
 document.querySelector('form.userinput').addEventListener('submit', function (e) {
   e.preventDefault();
   tryInput = document.getElementById('computation').value;
@@ -47,11 +106,13 @@ function calculatemulti(number1, number2, operator) {
     result = divide(a, b);
   }
   console.log("Result:", result); // Add console.log to display the result
+  //display result as its calculated
+  document.getElementById("output").innerText = result; // new display value
   return result;
 };
 
 function recursive(tryInput, result, number1) {
-  if (!tryInput || tryInput.length === 0) {
+  if (!tryInput || tryInput.length === 0) { // changed tryInput to updatedexpression
     // Handle the base case (e.g., return a result or perform some final action)
     console.log("Base case reached. Result:", result);
     return result;
@@ -74,6 +135,8 @@ function recursive(tryInput, result, number1) {
     console.log("number1:", number1);
     number2 = getNumber2(updatedExpression, operator);
     resultcalcmulti = calculatemulti(number1, number2, operator);
+    result = resultcalcmulti; //new result
+
     console.log("Resultcalcmulti:", result);
     recursive(updatedExpression, resultcalcmulti, number1);
     document.getElementById("output").innerText = resultcalcmulti;
@@ -110,13 +173,14 @@ function getNumber2(tryInput, operator) {
 
 function display(button) {
   var computationInput = document.getElementById('computation');
-  if (result === '=') {
+  if (result === '=' || result == '+' || result == '-' || result == '*' || result == '/') {
     computationInput.value = result;
   } 
   else {
     buttonText = button.textContent;
     computationInput.value += buttonText;
-  };}
+  };
+}
 
 // function display(button) {
 //   var buttonText = button.textContent;
@@ -131,10 +195,10 @@ function display(button) {
 //   }
 // }
 
-function clearText() {
-  document.getElementById('output').value = " ";
-  document.getElementById('computation').value = "";
-}
+// function clearText() {
+//   document.getElementById('output').value = " ";
+//   document.getElementById('computation').value = "";
+// }
 
 const outputSpan = document.getElementById("output");
 
