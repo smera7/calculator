@@ -40,7 +40,7 @@ document.querySelectorAll('.digitz').forEach(function(button) {
     //   document.getElementById("output").innerText = result;
     // }
 
-    //save REGEX /[+\-*/]\d+/
+    //save REGEX /[+\-*/]\d+[+\-*/]/
   if (computationInput.value === '' || /[+\-*/]\d+[+\-*/]/.test(computationInput.value)) {
     // computationInput.value += buttonText;
     console.log("Number is not the first");
@@ -123,8 +123,26 @@ function calculatemulti(number1, number2, operator) {
   console.log("Result:", result); // Add console.log to display the result
   //display result as its calculated
   document.getElementById("output").innerText = result; // new display value
+  //display result as its calculated only if 
   return result;
 };
+
+// let operatorPressed = false;
+
+// // ... (button click event listeners)
+
+// button.addEventListener('click', function(e) {
+//   // ... (other code)
+
+//   if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+//     operatorPressed = true;
+//   } else if (buttonText === '=') {
+//     proccesing(); // Perform the calculation
+//     operatorPressed = false; // Reset the flag NEW
+//   } else {
+//     currentInput += buttonText;
+//   }
+// });
 
 function recursive(tryInput, result, number1) {
   if (!tryInput || tryInput.length === 0) { // changed tryInput to updatedexpression
@@ -132,6 +150,15 @@ function recursive(tryInput, result, number1) {
     console.log("Base case reached. Result:", result);
     return result;
   }
+
+  // if (operatorPressed) {
+  //   resultcalcmulti = calculatemulti(number1, number2, operator);
+  //   result = resultcalcmulti; // Update the result
+  //   operatorPressed = false; // Reset the flag
+
+  //   // Display the result as it's calculated NEW
+  //   document.getElementById("output").innerText = result;
+  // }
   
   var operator = getOperator(tryInput);
   const regex = /^([-+]?\d*\.?\d+)\s*([+\-*/])\s*([-+]?\d*\.?\d+)\s*([+\-*/])\s*(.*)/;
@@ -152,12 +179,76 @@ function recursive(tryInput, result, number1) {
     resultcalcmulti = calculatemulti(number1, number2, operator);
     result = resultcalcmulti; //new result
 
-    console.log("Resultcalcmulti:", result);
-    recursive(updatedExpression, resultcalcmulti, number1);
-    document.getElementById("output").innerText = resultcalcmulti;
+    // console.log("Resultcalcmulti:", result);
+    // document.getElementById("output").innerText = resultcalcmulti; SWITCH BACK
 
+    if (['+', '-', '*', '/'].includes(nextoperator)) {
+      console.log("Resultcalcmulti:", result);
+      document.getElementById("output").innerText = result;
+    }
+    recursive(updatedExpression, result, number1); // moved
   }
 };
+
+currentInput = '';
+// document.querySelectorAll('.digitz').forEach(function(button) {
+//   button.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     buttonText = button.textContent;
+
+//     // Check if the button is an operator
+//     if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+//       // Check if an operator was already pressed
+//       if (operatorPressed) {
+//         currentInput = computationInput.value;
+//       } else {
+//         proccesing(); // Perform the calculation
+//         operatorPressed = true;
+//       }
+//     } else if (buttonText === '=') {
+//       proccesing(); // Perform the calculation
+//       operatorPressed = false; // Reset the operatorPressed flag
+//     } else {
+//       currentInput += buttonText;
+//       // computationInput.value = currentInput;
+//       console.log("Number is the first");
+//     }
+//   });
+// });
+
+// document.querySelectorAll('.digitz').forEach(function(button) {
+//   button.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     buttonText = button.textContent;
+
+//     // Check if the button is an operator
+//     if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+//       operatorPressed = true;
+//     } else if (buttonText === '=') {
+//       proccesing(); // Perform the calculation
+//     } else {
+//       currentInput += buttonText;
+//       // computationInput.value = currentInput; OG
+//     }
+//   });
+// });
+
+document.querySelectorAll('.digitz').forEach(function(button) {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    buttonText = button.textContent;
+
+    // Check if the button is an operator
+    if (buttonText === "=" || buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+      operatorPressed = true;
+      proccesing(); // Perform the calculation
+    } else {
+      currentInput += buttonText;
+      // computationInput.value = currentInput;
+    }
+  });
+});
+
 
 recursive(tryInput, result, number1);
 
@@ -188,7 +279,7 @@ function getNumber2(tryInput, operator) {
 
 function display(button) {
   var computationInput = document.getElementById('computation');
-  if (result === '=' || result == '+' || result == '-' || result == '*' || result == '/') {
+  if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
     computationInput.value = result;
   } 
   else {
@@ -196,6 +287,7 @@ function display(button) {
     computationInput.value += buttonText;
   };
 }
+
 
 // function display(button) {
 //   var buttonText = button.textContent;
