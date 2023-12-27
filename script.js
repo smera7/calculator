@@ -46,7 +46,7 @@ document.querySelectorAll('.digitz').forEach(function(button) {
     tryInput = document.getElementById('computation').value;
     proccesing();
     // getOperator(tryInput);
-    result = calculatemulti(number1, number2, operator);
+    // result = calculatemulti(number1, number2, operator); // this call to multi gets NaN
     document.getElementById("output").innerText = result;
   } else {
     console.log("Number is the first");
