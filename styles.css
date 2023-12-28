@@ -7,11 +7,12 @@
     font-weight: bold;
     color: #000;
     text-align: right;
-    padding: 10px;
     background-color: #fff;
     /* border: 1px solid #000; */
     border-radius: 5px;
-    margin-bottom: 10px;
+    width: 100 px;
+    height: 45px;
+    display: block;
 }
 
 .calculator-display {
@@ -96,25 +97,27 @@
     width: 80px;
     height: 80px;
     background-color: pink;
+    border-radius: 20px;
 }
 
 #clearzy {
     width: 80px;
     height: 80px;
     background-color: lightblue;
+    border-radius: 20px;
 }
 .grid > div {
     border: 1px solid #000;
 }
 .digitz {
     font-size: 30px;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: bisque;
 }
 
 .operatormulti {
     font-size: 30px;
-    border-radius: 5px;
+    border-radius: 20px;
     background-color: pink;
 }
 
@@ -140,7 +143,9 @@ h1 {
     grid: 1fr 1fr;
     border: 1px solid #000;
     width: 400px;
+    height: 525px;
     /* center */
-    margin: 0 auto;
+    margin: 425px auto;
     background-color: lightgray;
+    border-radius: 10px;
 }

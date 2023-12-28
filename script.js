@@ -2,7 +2,28 @@
 const add = (a, b) => parseFloat(a) + parseFloat(b);
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
-const divide = (a, b) => (b === 0) ? 'Error: Division by zero' : a / b;
+const divide = (a, b) => {
+  if (b === 0) {
+    return 'Error: Division by zero';
+  }
+  // if input is a decimal
+  test = a % 1;
+  a = parseFloat(a);
+  console.log("A:", a);
+  b = parseFloat(b);
+  console.log("B:", b);
+  console.log("Test:", test);
+  if (a % 1 != 0) {
+    // convert to multiplication by 1/number
+    console.log("a is a decimal");
+    const roundedValue = Math.round(a * 100) / 100; // Round to two decimal places
+  console.log("Rounded Value:", roundedValue);
+  }
+
+  parseit = parseFloat(a) / parseFloat(b);
+  console.log("Parseit:", parseit);
+  return parseit;
+};
 
 // document.querySelectorAll('.digitz').forEach(function (button) {
 //   button.addEventListener('click', function (e) {
@@ -35,7 +56,7 @@ document.querySelectorAll('.digitz').forEach(function(button) {
     e.preventDefault();
     var computationInput = document.getElementById('computation');
     var buttonText = button.textContent;
-
+    
     // keep /[+\-*/]\d+[+\-*/]/
 
     if (computationInput.value === '' || /[+\-*/]/.test(computationInput.value)) {
@@ -140,7 +161,7 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
   });
 
 function proccesing() {
-  var number1 = parseInt(tryInput);
+  var number1 = parseFloat(tryInput);
   operator = getOperator(tryInput);
   var number2 = getNumber2(tryInput, operator);
   calculatemulti(number1, number2, operator);
