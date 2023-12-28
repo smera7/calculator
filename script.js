@@ -45,6 +45,50 @@ document.querySelector('form.userinput').addEventListener('submit', function (e)
   getOperator(tryInput);
 });
 
+// document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
+//   button.addEventListener('click', function(e) {
+//     e.preventDefault();
+//     // console.log("Button clicked:", button.textContent);
+//     buttonText = button.textContent;
+    
+//       operatorPressed = true;
+//       proccesing();
+//       // console.log("operator caught");
+//       currentInput += buttonText;
+//       result = 
+//       document.getElementById("output").innerText = result;
+
+  
+//     // else {
+//     //   console.log("updating with button text", currentInput);
+//     // }
+//   });
+// });
+
+document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    buttonText = button.textContent;
+
+    if (buttonText === "=" || buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+      operatorPressed = true;
+
+      // Call proccesing() asynchronously
+      setTimeout(function() {
+        proccesing();
+        // Update the result and display it
+        document.getElementById("output").innerText = result;
+      }, 0);
+      
+    } else {
+      // If it's not an operator, update currentInput
+      currentInput += buttonText;
+    }
+  });
+});
+
+
 function proccesing() {
   var number1 = parseInt(tryInput);
   operator = getOperator(tryInput);
@@ -105,23 +149,6 @@ function recursive(tryInput, result, number1) {
 };
 
 currentInput = '';
-
-document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
-  button.addEventListener('click', function(e) {
-    e.preventDefault();
-    // console.log("Button clicked:", button.textContent);
-    buttonText = button.textContent;
-    
-      operatorPressed = true;
-      // proccesing();
-      console.log("operator caught");
-      currentInput += buttonText;
-  
-    // else {
-    //   console.log("updating with button text", currentInput);
-    // }
-  });
-});
 
 
 
