@@ -259,24 +259,30 @@ function undisplay(button) {
     computationInput.value = result;
   } else {
     var buttonText = button.textContent;
-    var sample = computationInput.value.slice(0, -1); // Remove the last character
-    // update output display accordingly as well 
-    document.getElementById("output").innerText = sample.slice(0, -1);
-    console.log("Try:", sample);
-    computationInput.value = sample;
+    var updatedValue = computationInput.value.slice(0, -1); // Remove the last character
+    // if its the first number, don't remove it ?
+    number1 = parseFloat(updatedValue);
+    operator = getOperator(updatedValue);
+    number2 = getNumber2(updatedValue, operator);
+    newOutput = calculatemulti(number1, number2, operator);
+    document.getElementById("output").innerText = newOutput;
+    // if its the first number show the first number
+    console.log("updatedvaluepostdelete:", updatedValue);
+
+    computationInput.value = updatedValue;
   }
 }
+
+// Example usage
+document.getElementById('deleteButton').addEventListener('click', function() {
+  undisplay();
+});
+
 
 
 const outputSpan = document.getElementById("output");
 
-// clearzy.addEventListener("click", () => {
-//   outputSpan.textContent = "";
-//   document.getElementById("output").innerText = "";
-//   localStorage.clear();
-//   sessionStorage.clear();
-//   location.reload();
-// });
+
 console.log("Adding event listener to clearzy");
 var clearzy = document.getElementById("clearzy");
 console.log("Clearzy element:", clearzy);
