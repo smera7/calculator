@@ -71,7 +71,7 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
     
     buttonText = button.textContent;
 
-    if (buttonText === "=" || buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+    if ( buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
       operatorPressed = true;
 
       // Call proccesing() asynchronously
@@ -179,9 +179,21 @@ function display(button) {
 }
 const outputSpan = document.getElementById("output");
 
+// clearzy.addEventListener("click", () => {
+//   outputSpan.textContent = "";
+//   document.getElementById("output").innerText = "";
+//   localStorage.clear();
+//   sessionStorage.clear();
+//   location.reload();
+// });
+console.log("Adding event listener to clearzy");
+var clearzy = document.getElementById("clearzy");
+console.log("Clearzy element:", clearzy);
+
 clearzy.addEventListener("click", () => {
   outputSpan.textContent = "";
   localStorage.clear();
   sessionStorage.clear();
   location.reload();
+  console.log("Reload triggered");
 });
