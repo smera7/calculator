@@ -32,9 +32,14 @@
     "seven eight nine plus" 
     "four five six minus" 
     "one two three multiply" 
-    "zero zero dot divide"
+    "zero dot backspace divide"
 }
 
+#backspace {
+    grid-area: backspace;
+    border-radius: 20px;
+    background-color: lightblue;
+}
 #nine {
     grid-area: nine;
 }  

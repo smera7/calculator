@@ -180,9 +180,9 @@ function calculatemulti(number1, number2, operator) {
   } else if (operator == '/') {
     result = divide(a, b);
     // if result is a decimal, round it to 4 decimal places
+    }
     if (result % 1 != 0) {
       result = result.toFixed(4);
-    }
   }
   console.log("actual result variable:", result);
   // document.getElementById("output").innerText = result;
@@ -250,6 +250,24 @@ function display(button) {
     computationInput.value += buttonText;
   };
 }
+
+function undisplay(button) {
+  var computationInput = document.getElementById('computation');
+  var result = computationInput.value; // Assuming result is the current value in the computation input
+
+  if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+    computationInput.value = result;
+  } else {
+    var buttonText = button.textContent;
+    var sample = computationInput.value.slice(0, -1); // Remove the last character
+    // update output display accordingly as well 
+    document.getElementById("output").innerText = sample.slice(0, -1);
+    console.log("Try:", sample);
+    computationInput.value = sample;
+  }
+}
+
+
 const outputSpan = document.getElementById("output");
 
 // clearzy.addEventListener("click", () => {
