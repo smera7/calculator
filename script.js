@@ -240,16 +240,146 @@ function getNumber2(tryInput, operator) {
   return number2;
 };
 
+// function display(button) {
+//   var computationInput = document.getElementById('computation');
+//   if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+//     computationInput.value = result;
+//   } 
+//   else {
+//     buttonText = button.textContent;
+//     computationInput.value += buttonText;
+//   };
+
+//   if (resultDisplay.innerText !== "") {
+//     // If there is a dynamic result displayed, update computation input with the result
+//     computationInput.value = resultDisplay.innerText;
+//     resultDisplay.innerText = ""; // Clear the dynamic result
+//   } else {
+//     // Otherwise, continue with the regular display logic
+//     computationInput.value += buttonText;
+//   }
+// }
+
+// function display(button) {
+//   var computationInput = document.getElementById('computation');
+//   var resultDisplay = document.getElementById('output');
+//   var buttonText = button.textContent;
+//   var result = resultDisplay.innerText; // Get the dynamic result
+
+//   if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+//     computationInput.value = buttonText; // Set computation input with the button text
+//   } else {
+//     computationInput.value += buttonText; // Append the button text to the existing input
+//   }
+
+//   if (result !== "") {
+//     // If there is a dynamic result displayed, clear it
+//     resultDisplay.innerText = "";
+//   }
+// }
+
+// function display(button) {
+//   var computationInput = document.getElementById('computation');
+//   var resultDisplay = document.getElementById('output');
+//   var buttonText = button.textContent;
+//   var result = resultDisplay.innerText; // Get the dynamic result
+
+//   if (isOperator(buttonText)) {
+//     // If the pressed button is an operator, display the current input as is
+//     computationInput.value = computationInput.value.trim();
+//     computationInput.value += " " + buttonText + " ";
+//   } else {
+//     // If the pressed button is a digit, update the input accordingly
+//     if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+//       computationInput.value = buttonText;
+//     } else {
+//       computationInput.value += buttonText;
+//     }
+//   }
+
+//   if (result !== "") {
+//     // If there is a dynamic result displayed, clear it
+//     resultDisplay.innerText = "";
+//   }
+// }
+
+// // Function to check if a button represents an operator
+// function isOperator(text) {
+//   return ['+', '-', '*', '/'].includes(text);
+// }
+
+
+// function display(button) {
+//   var computationInput = document.getElementById('computation');
+//   var resultDisplay = document.getElementById('output');
+//   var buttonText = button.textContent;
+//   var result = resultDisplay.innerText; // Get the dynamic result
+
+//   if (isOperator(buttonText)) {
+//     // If the pressed button is an operator, update the input accordingly
+//     computationInput.value = computationInput.value.trim(); // Remove leading/trailing spaces
+//     computationInput.value = buttonText + " ";
+//   } else {
+//     // If the pressed button is a digit, update the input accordingly
+//     if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+//       computationInput.value = buttonText;
+//     } else {
+//       computationInput.value += buttonText;
+//     }
+//   }
+
+//   if (result !== "") {
+//     // If there is a dynamic result displayed, clear it
+//     resultDisplay.innerText = "";
+//   }
+// }
+
+// // Function to check if a button represents an operator
+// function isOperator(text) {
+//   return ['+', '-', '*', '/'].includes(text);
+// }
+
 function display(button) {
   var computationInput = document.getElementById('computation');
-  if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
-    computationInput.value = result;
-  } 
-  else {
-    buttonText = button.textContent;
-    computationInput.value += buttonText;
-  };
+  var resultDisplay = document.getElementById('output');
+  var buttonText = button.textContent;
+  var result = resultDisplay.innerText; // Get the dynamic result
+
+  if (isOperator(buttonText)) {
+    // If the pressed button is an operator, update the input accordingly
+    computationInput.value = getResult() + " " + buttonText + " ";
+  } else {
+    // If the pressed button is a digit, update the input accordingly
+    if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+      computationInput.value = buttonText;
+    } else {
+      computationInput.value += buttonText;
+    }
+  }
+
+  if (result !== "") {
+    // If there is a dynamic result displayed, clear it
+    resultDisplay.innerText = "";
+  }
 }
+
+// Function to check if a button represents an operator
+function isOperator(text) {
+  return ['+', '-', '*', '/'].includes(text);
+}
+
+// Function to evaluate the current expression and return the result
+function getResult() {
+  var expression = computationInput.value.trim();
+  try {
+    return eval(expression);
+  } catch (error) {
+    return ""; // Handle errors gracefully, you can provide a more specific error message if needed
+  }
+}
+
+
+
 
 function undisplay(button) {
   var computationInput = document.getElementById('computation');
@@ -277,8 +407,6 @@ function undisplay(button) {
 document.getElementById('deleteButton').addEventListener('click', function() {
   undisplay();
 });
-
-
 
 const outputSpan = document.getElementById("output");
 
