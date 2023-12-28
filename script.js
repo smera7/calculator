@@ -59,6 +59,18 @@ document.getElementById('displayequals').addEventListener('click', function (e) 
   document.getElementById("output").innerText = result;
 });
 
+document.getElementById('clearzy').addEventListener('click', function (e) {
+  console.log("Clear button clicked");
+  e.preventDefault();
+  tryInput = document.getElementById('computation').value;
+  proccesing();
+  getOperator(tryInput);
+  // display nothing
+  document.getElementById("output").innerText = "";
+  // clear input
+  document.getElementById('computation').value = "";
+});
+
 
 document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
   button.addEventListener('click', function(e) {
