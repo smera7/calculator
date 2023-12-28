@@ -69,6 +69,7 @@ document.getElementById('clearzy').addEventListener('click', function (e) {
   document.getElementById("output").innerText = "";
   // clear input
   document.getElementById('computation').value = "";
+  location.reload();
 });
 
 
@@ -86,9 +87,9 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
         // Update the result and display it
         document.getElementById("output").innerText = result;
         // after some time clear it
-        setTimeout(function() {
-          document.getElementById("output").innerText = "";
-        }, 5000); // simulates the clear function i guess
+        // setTimeout(function() {
+        //   document.getElementById("output").innerText = "";
+        // }, 5000); // simulates the clear function i guess
       }, 0);
       
     } else {
