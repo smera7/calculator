@@ -42,33 +42,49 @@ function isOperator(text) {
 var resultDisplayed = false;
 
 document.querySelector('form.userinput').addEventListener('submit', function (e) {
+  console.log("Form submitted");
   e.preventDefault();
   tryInput = document.getElementById('computation').value;
   proccesing();
   getOperator(tryInput);
 });
 
-// document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
-//   button.addEventListener('click', function(e) {
-//     e.preventDefault();
-//     // console.log("Button clicked:", button.textContent);
-//     buttonText = button.textContent;
-    
-//       operatorPressed = true;
-//       proccesing();
-//       // console.log("operator caught");
-//       currentInput += buttonText;
-//       result = 
-//       document.getElementById("output").innerText = result;
+document.getElementById('displayequals').addEventListener('click', function (e) {
+  console.log("Submit button clicked");
+  e.preventDefault();
+  tryInput = document.getElementById('computation').value;
+  proccesing();
+  getOperator(tryInput);
+  // display result
+  document.getElementById("output").innerText = result;
+});
 
-  
-//     // else {
-//     //   console.log("updating with button text", currentInput);
-//     // }
-//   });
-// });
 
 document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    buttonText = button.textContent;
+
+    if (buttonText === "=" || buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+      operatorPressed = true;
+
+      // Call proccesing() asynchronously
+      setTimeout(function() {
+        proccesing();
+        // Update the result and display it
+        document.getElementById("output").innerText = result;
+        // after some time clear it
+        setTimeout(function() {
+          document.getElementById("output").innerText = "";
+        }, 5000); // simulates the clear function i guess
+      }, 0);
+      
+    } else {
+      // If it's not an operator, update currentInput
+      currentInput += buttonText;
+    }
+  });
+});
   button.addEventListener('click', function(e) {
     e.preventDefault();
     
@@ -93,31 +109,6 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
       currentInput += buttonText;
     }
   });
-
-  // button.addEventListener('click', async function(e) {
-  //   e.preventDefault();
-    
-  //   buttonText = button.textContent;
-  
-  //   if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
-  //     operatorPressed = true;
-  
-  //     // Use a Promise to ensure asynchronous behavior
-  //     await new Promise(resolve => setTimeout(resolve, 0));
-  
-  //     // Call proccesing() after the delay
-  //     proccesing();
-  
-  //     // Update the result and display it
-  //     document.getElementById("output").innerText = result;
-  //   } else {
-  //     // If it's not an operator, update currentInput
-  //     currentInput += buttonText;
-  //   }
-  // });
-  
-});
-
 
 function proccesing() {
   var number1 = parseInt(tryInput);
