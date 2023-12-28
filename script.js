@@ -19,7 +19,10 @@ document.querySelectorAll('.digitz').forEach(function(button) {
     var computationInput = document.getElementById('computation');
     var buttonText = button.textContent;
 
-    if (computationInput.value === '' || /[+\-*/]\d+[+\-*/]/.test(computationInput.value)) {
+
+    // keep /[+\-*/]\d+[+\-*/]/
+
+    if (computationInput.value === '' || /[+\-*/]/.test(computationInput.value)) {
       console.log("Number is not the first");
       e.preventDefault();
       tryInput = document.getElementById('computation').value;
@@ -71,7 +74,7 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
     
     buttonText = button.textContent;
 
-    if ( buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+    if (buttonText === "=" || buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
       operatorPressed = true;
 
       // Call proccesing() asynchronously
@@ -79,6 +82,10 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
         proccesing();
         // Update the result and display it
         document.getElementById("output").innerText = result;
+        // after some time clear it
+        setTimeout(function() {
+          document.getElementById("output").innerText = "";
+        }, 80000); // simulates the clear function i guess
       }, 0);
       
     } else {
@@ -86,6 +93,29 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
       currentInput += buttonText;
     }
   });
+
+  // button.addEventListener('click', async function(e) {
+  //   e.preventDefault();
+    
+  //   buttonText = button.textContent;
+  
+  //   if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+  //     operatorPressed = true;
+  
+  //     // Use a Promise to ensure asynchronous behavior
+  //     await new Promise(resolve => setTimeout(resolve, 0));
+  
+  //     // Call proccesing() after the delay
+  //     proccesing();
+  
+  //     // Update the result and display it
+  //     document.getElementById("output").innerText = result;
+  //   } else {
+  //     // If it's not an operator, update currentInput
+  //     currentInput += buttonText;
+  //   }
+  // });
+  
 });
 
 
