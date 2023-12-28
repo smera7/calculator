@@ -381,27 +381,175 @@ function getResult() {
 
 
 
+// function undisplay(button) {
+//   var computationInput = document.getElementById('computation');
+//   var result = computationInput.value; // Assuming result is the current value in the computation input
+
+//   if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+//     computationInput.value = result;
+//   } else {
+//     var buttonText = button.textContent;
+//     var updatedValue = computationInput.value.slice(0, -1); // Remove the last character
+//     // if its the first number, don't remove it ?
+//     number1 = parseFloat(updatedValue);
+//     operator = getOperator(updatedValue);
+//     number2 = getNumber2(updatedValue, operator);
+//     newOutput = calculatemulti(number1, number2, operator);
+//     document.getElementById("output").innerText = newOutput;
+//     // if its the first number show the first number
+//     console.log("updatedvaluepostdelete:", updatedValue);
+
+//     computationInput.value = updatedValue;
+//   }
+// }
+
+function display(button) {
+  var computationInput = document.getElementById('computation');
+  var resultDisplay = document.getElementById('output');
+  var buttonText = button.textContent;
+  var result = resultDisplay.innerText; // Get the dynamic result
+
+  if (isOperator(buttonText)) {
+    // If the pressed button is an operator, update the input accordingly
+    computationInput.value = getResult() + " " + buttonText + " ";
+  } else {
+    // If the pressed button is a digit, update the input accordingly
+    if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+      computationInput.value = buttonText;
+    } else {
+      computationInput.value += buttonText;
+    }
+  }
+
+  if (result !== "") {
+    // If there is a dynamic result displayed, clear it
+    resultDisplay.innerText = "";
+  }
+}
+
+// Function to check if a button represents an operator
+function isOperator(text) {
+  return ['+', '-', '*', '/'].includes(text);
+}
+
+// Function to evaluate the current expression and return the result
+function getResult() {
+  var expression = computationInput.value.trim();
+  try {
+    return eval(expression);
+  } catch (error) {
+    return ""; // Handle errors gracefully, you can provide a more specific error message if needed
+  }
+}
+
+// function undisplay(button) {
+//   var computationInput = document.getElementById('computation');
+//   var result = computationInput.value.trim(); // Trim leading/trailing spaces
+
+//   if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+//     // If the current value is an operator or equals sign, keep it unchanged
+//     computationInput.value = result;
+//   } else {
+//     var buttonText = button.textContent;
+
+//     // If it's the first number and the only number, don't remove it
+//     if (isSingleNumber(result, buttonText)) {
+//       computationInput.value = result;
+//     } else {
+//       var updatedValue = result.slice(0, -1); // Remove the last character
+
+//       number1 = parseFloat(updatedValue);
+//       operator = getOperator(updatedValue);
+//       number2 = getNumber2(updatedValue, operator);
+//       newOutput = calculatemulti(number1, number2, operator);
+//       document.getElementById("output").innerText = newOutput;
+//       console.log("updatedvaluepostdelete:", updatedValue);
+//       computationInput.value = updatedValue;
+//     }
+//   }
+// }
+
+// function undisplay(button) {
+//   var computationInput = document.getElementById('computation');
+//   var result = computationInput.value.trim(); // Trim leading/trailing spaces
+
+//   if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+//     // If the current value is an operator or equals sign, keep it unchanged
+//     computationInput.value = result;
+//   } else {
+//     var buttonText = button.textContent;
+
+//     // If it's the first number and the only number, don't remove it
+//     if (isSingleNumber(result, buttonText)) {
+//       computationInput.value = result;
+//     } else {
+//       var updatedValue = result.slice(0, -1); // Remove the last character
+
+//       if (updatedValue.trim() === '') {
+//         // If the trimmed updatedValue is empty, keep it unchanged
+//         computationInput.value = result;
+//       } else {
+//         number1 = parseFloat(updatedValue);
+//         operator = getOperator(updatedValue);
+//         number2 = getNumber2(updatedValue, operator);
+//         newOutput = calculatemulti(number1, number2, operator);
+//         document.getElementById("output").innerText = newOutput;
+//         console.log("updatedvaluepostdelete:", updatedValue);
+//         computationInput.value = updatedValue;
+//       }
+//     }
+//   }
+// }
+
+
+// // Function to check if the expression contains only one number
+// function isSingleNumber(expression, buttonText) {
+//   return expression === buttonText || expression === '-' + buttonText;
+// }
+
 function undisplay(button) {
   var computationInput = document.getElementById('computation');
-  var result = computationInput.value; // Assuming result is the current value in the computation input
+  var result = computationInput.value.trim(); // Trim leading/trailing spaces
 
   if (result === '=' || result === '+' || result === '-' || result === '*' || result === '/') {
+    // If the current value is an operator or equals sign, keep it unchanged
     computationInput.value = result;
   } else {
     var buttonText = button.textContent;
-    var updatedValue = computationInput.value.slice(0, -1); // Remove the last character
-    // if its the first number, don't remove it ?
-    number1 = parseFloat(updatedValue);
-    operator = getOperator(updatedValue);
-    number2 = getNumber2(updatedValue, operator);
-    newOutput = calculatemulti(number1, number2, operator);
-    document.getElementById("output").innerText = newOutput;
-    // if its the first number show the first number
-    console.log("updatedvaluepostdelete:", updatedValue);
 
-    computationInput.value = updatedValue;
+    // If it's the first number and the only number, don't remove it
+    if (isSingleNumber(result, buttonText)) {
+      computationInput.value = result;
+    } else {
+      var updatedValue = result.slice(0, -1); // Remove the last character
+
+      if (updatedValue.trim() === '') {
+        // If the trimmed updatedValue is empty, keep it unchanged
+        computationInput.value = result;
+      } else {
+        number1 = parseFloat(updatedValue);
+        operator = getOperator(updatedValue);
+        number2 = getNumber2(updatedValue, operator);
+        newOutput = calculatemulti(number1, number2, operator);
+        document.getElementById("output").innerText = newOutput;
+        console.log("updatedvaluepostdelete:", updatedValue);
+        computationInput.value = updatedValue;
+      }
+    }
   }
 }
+
+// Function to check if the expression contains only one number
+// function isSingleNumber(expression, buttonText) {
+//   // Check if the expression ends with the buttonText
+//   return expression.endsWith(buttonText) || expression.endsWith('-' + buttonText);
+// }
+
+function isSingleNumber(expression, buttonText) {
+  // Check if the expression ends with the buttonText or an operator
+  return expression.endsWith(buttonText) || /[+\-*/]$/.test(expression);
+}
+
 
 // Example usage
 document.getElementById('deleteButton').addEventListener('click', function() {
