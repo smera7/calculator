@@ -5,18 +5,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-     </div>
-        <div id = "form">
+    <div id = "calc-box">
+            <div id = "form">
             <form class="userinput">
                 <!-- <label for="computation"></label> -->
                 <input type="text" id="computation" placeholder="54 + 29" required >
                 <div id = "newgrid">
                 <p><span id="output"></span></p>
                 <!-- <span id="firstOperand"></span> <span id="operator"></span> <span id="secondOperand"></span> -->
-                <button type="submit" id="displayequals">=</button>
-                <input type="reset" value="Clear" id="clearzy"/> </div>
+                <input type="reset" value="Clear" id="clearzy"/>
+                <button id="displayequals">=</button></div>
                 <!-- deleted clear text -->
-                <br>
             </form>
             
         </div>
@@ -39,7 +38,7 @@
                 <button onclick="display(this)" class="digitz" type="digitz" id="zero">0</button>
                 <button onclick="display(this)" class="digitz" type="digitz" id="decimal">.</button>
                 <button onclick="display(this)" class="operatormulti" id="divide">/</button><br><br>
-        </div>
+        </div></div></body>
         <script src="script.js"></script>
 </body>
 </html>

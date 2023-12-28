@@ -1,8 +1,25 @@
 // Function to add two numbers
-const add = (a, b) => a + b;
+const add = (a, b) => parseFloat(a) + parseFloat(b);
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => (b === 0) ? 'Error: Division by zero' : a / b;
+
+// document.querySelectorAll('.digitz').forEach(function (button) {
+//   button.addEventListener('click', function (e) {
+//     e.preventDefault();
+//     const buttonText = button.textContenst;
+//     const computationInput = document.getElementById('computation');
+
+//     // Check if the last character is a decimal point
+//     const lastChar = computationInput.value.slice(-1);
+//     if (buttonText === '.' && lastChar === '.') {
+//       return; // Ignore consecutive decimal points
+//     }
+
+//     computationInput.value += buttonText;
+//   });
+// });
+
 
 var computationInput = document.getElementById('computation');
 
@@ -18,7 +35,6 @@ document.querySelectorAll('.digitz').forEach(function(button) {
     e.preventDefault();
     var computationInput = document.getElementById('computation');
     var buttonText = button.textContent;
-
 
     // keep /[+\-*/]\d+[+\-*/]/
 
@@ -72,7 +88,6 @@ document.getElementById('clearzy').addEventListener('click', function (e) {
   location.reload();
 });
 
-
 document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
   button.addEventListener('click', function(e) {
     e.preventDefault();
@@ -98,6 +113,7 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
     }
   });
 });
+
   button.addEventListener('click', function(e) {
     e.preventDefault();
     
@@ -112,9 +128,9 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
         // Update the result and display it
         document.getElementById("output").innerText = result;
         // after some time clear it
-        setTimeout(function() {
-          document.getElementById("output").innerText = "";
-        }, 80000); // simulates the clear function i guess
+        // setTimeout(function() {
+        //   document.getElementById("output").innerText = "";
+        // }, 80000); // simulates the clear function i guess
       }, 0);
       
     } else {
@@ -142,6 +158,10 @@ function calculatemulti(number1, number2, operator) {
     result = multiply(a, b);
   } else if (operator == '/') {
     result = divide(a, b);
+    // if result is a decimal, round it to 4 decimal places
+    if (result % 1 != 0) {
+      result = result.toFixed(4);
+    }
   }
   console.log("actual result variable:", result);
   // document.getElementById("output").innerText = result;
@@ -166,25 +186,23 @@ function recursive(tryInput, result, number1) {
     let nextoperator = match[4];
     const remainingExpression = match[5];
     const updatedExpression = result + ' ' + nextoperator + ' ' + remainingExpression;
-    console.log("Updated expression:", updatedExpression);
+
     operator = nextoperator;
-    console.log("nextOperator:", operator);
+    
     number1 = parseInt(updatedExpression);
-    console.log("number1:", number1);
+   
     number2 = getNumber2(updatedExpression, operator);
     resultcalcmulti = calculatemulti(number1, number2, operator);
     result = resultcalcmulti;
-    if (['+', '-', '*', '/'].includes(nextoperator)) {
-      console.log("Resultcalcmulti:", result);
-    // document.getElementById("output").innerText = result;
-     }
+    // if (['+', '-', '*', '/'].includes(nextoperator)) {
+    //   console.log("Resultcalcmulti:", result);
+    // // document.getElementById("output").innerText = result;
+    //  }
     return recursive(updatedExpression, result, number1);
   }
 };
 
 currentInput = '';
-
-
 
 recursive(tryInput, result, number1);
 
