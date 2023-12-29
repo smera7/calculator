@@ -75,7 +75,7 @@ document.getElementById('displayequals').addEventListener('click', function (e) 
   proccesing();
   getOperator(tryInput);
   // display result
-  document.getElementById("output").innerText = getResult();
+  // document.getElementById("output").innerText = getResult();
 });
 
 document.getElementById('clearzy').addEventListener('click', function (e) {
@@ -103,7 +103,7 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
       setTimeout(function() {
         proccesing();
         // Update the result and display it
-        document.getElementById("output").innerText = getResult(); // this was outputting incorrectly
+        // document.getElementById("output").innerText = getResult(); // this was outputting incorrectly
         // after some time clear it
         // setTimeout(function() {
         //   document.getElementById("output").innerText = "";
@@ -214,6 +214,7 @@ function display(button) {
   if (isOperator(buttonText)) {
     // If the pressed button is an operator, update the input accordingly
     computationInput.value = getResult() + " " + buttonText + " ";
+    resultDisplay.innerText = computationInput.value.slice(0, -2); // had to fix from getResult();
     console.log("is two?", computationInput.value)
   } 
   else {
@@ -250,12 +251,8 @@ function isOperator(text) {
 function getResult() {
   var expression = computationInput.value.trim();
   var result = simulatEval(expression);
-
-  if (result === 0) {
-    return expression.slice(0, -1);
-  }
-
-  return result;
+  console.log("what is simulateval:", simulatEval(expression));
+  return simulatEval(expression);
 }
 
 
@@ -291,6 +288,7 @@ function simulatEval(expression) {
         result *= operand;
       } else if (currentOperator === '/') {
         result /= operand;
+        console.log("Resultinf?:", result)
       }
 
       negate = currentOperator === '-' && part === '';
@@ -314,7 +312,7 @@ function undisplay(button) {
     // update output display accordingly as well
     sampleresult = calculatemulti(parseFloat(sample), getNumber2(sample, getOperator(sample)), getOperator(sample));
     console.log("Sample Result:", sampleresult);
-    document.getElementById("output").innerText = getResult();
+    // document.getElementById("output").innerText = getResult();
     computationInput.value = sample;
   }
 
