@@ -241,16 +241,29 @@ function display(button) {
   var resultDisplay = document.getElementById('output');
   var buttonText = button.textContent;
   var result = resultDisplay.innerText.trim(); // Get the dynamic result
+  // var sample = computationInput;
+  // console.log("sampleresult", sample);
+  // sampleresult = calculatemulti(parseFloat(sample), getNumber2(sample, getOperator(sample)), getOperator(sample));
+  // var number1 = parseFloat(tryInput);
+  // operator = getOperator(tryInput);
+  // var number2 = getNumber2(tryInput, operator);
+  // result = calculatemulti(number1, number2, operator);
+  // console.log("ResultNOW:", result);
 
   if (isOperator(buttonText)) {
     // If the pressed button is an operator, update the input accordingly
     computationInput.value = getResult() + " " + buttonText + " ";
-  } else {
+    console.log("is two?", computationInput.value)
+  } 
+  else {
     // If the pressed button is a digit, update the input accordingly
     if (result === '=' || isOperator(result)) {
       computationInput.value = buttonText;
+      console.log("is one?", result);
     } else {
       computationInput.value += buttonText;
+      // computationInput.value = result;
+      console.log("is three?", computationInput.value);
     }
   }
 
@@ -268,20 +281,56 @@ function isOperator(text) {
 // Function to evaluate the current expression and return the result
 function getResult() {
   var expression = computationInput.value.trim();
+  console.log("Expression:", simulatEval(expression));
   return simulatEval(expression);
 }
 
+// function simulatEval(expression) {
+//   // Your custom evaluation logic here
+//   // Example: Split the expression into operands and operators and perform calculations
+//   // Replace the following lines with your actual evaluation logic
+//   expression = expression.replace(/(?<=\d)-/g, '-');
+//   console.log("Expression negative", expression)
+//   const parts = expression.split(/([+\-*/])/);
+//   return parts.reduce((accumulator, current) => {
+//     if (isOperator(current)) {
+//       return accumulator; // Skip operators
+//     }
+//     int = parseFloat(current || 0);
+//     console.log("Int:", int);
+//     return accumulator + parseFloat(current || 0);
+//   }, 0);
+// }
+
 function simulatEval(expression) {
-  // Your custom evaluation logic here
-  // Example: Split the expression into operands and operators and perform calculations
-  // Replace the following lines with your actual evaluation logic
+  // Replace subtraction sign with a special character
+  expression = expression.replace(/(?<=\d)-/g, 'NEG');
+  
+  // Split the expression into operands and operators
   const parts = expression.split(/([+\-*/])/);
-  return parts.reduce((accumulator, current) => {
-    if (isOperator(current)) {
-      return accumulator; // Skip operators
+  
+  // Evaluate the expression
+  let result = 0;
+  let currentOperator = '+';
+
+  for (const part of parts) {
+    if (isOperator(part)) {
+      currentOperator = part;
+    } else {
+      const value = parseFloat(part || 0);
+      if (currentOperator === '+') {
+        result += value;
+      } else if (currentOperator === '-') {
+        result -= value;
+      } else if (currentOperator === '*') {
+        result *= value;
+      } else if (currentOperator === '/') {
+        result /= value;
+      }
     }
-    return accumulator + parseFloat(current || 0);
-  }, 0);
+  }
+
+  return result;
 }
 
 
