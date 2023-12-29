@@ -15,9 +15,9 @@
     display: block;
 }
 
-.calculator-display {
+/* .calculator-display {
     grid-column: 1 / -1;
-  }
+  } */
 
 .grid {
     display: grid;
@@ -150,7 +150,13 @@ h1 {
     width: 400px;
     height: 525px;
     /* center */
-    margin: 425px auto;
+    /* margin: 425px auto; */
     background-color: lightgray;
     border-radius: 10px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    margin: 333px;
 }
