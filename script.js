@@ -76,7 +76,7 @@ document.getElementById('displayequals').addEventListener('click', function (e) 
   proccesing();
   getOperator(tryInput);
   // display result
-  document.getElementById("output").innerText = result;
+  document.getElementById("output").innerText = getResult();
 });
 
 document.getElementById('clearzy').addEventListener('click', function (e) {
@@ -104,7 +104,7 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
       setTimeout(function() {
         proccesing();
         // Update the result and display it
-        document.getElementById("output").innerText = result;
+        document.getElementById("output").innerText = getResult(); // this was outputting incorrectly
         // after some time clear it
         // setTimeout(function() {
         //   document.getElementById("output").innerText = "";
@@ -117,31 +117,6 @@ document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
     }
   });
 });
-
-  button.addEventListener('click', function(e) {
-    e.preventDefault();
-    
-    buttonText = button.textContent;
-
-    if (buttonText === "=" || buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
-      operatorPressed = true;
-
-      // Call proccesing() asynchronously
-      setTimeout(function() {
-        proccesing();
-        // Update the result and display it
-        document.getElementById("output").innerText = result;
-        // after some time clear it
-        // setTimeout(function() {
-        //   document.getElementById("output").innerText = "";
-        // }, 80000); // simulates the clear function i guess
-      }, 0);
-      
-    } else {
-      // If it's not an operator, update currentInput
-      currentInput += buttonText;
-    }
-  });
 
 function proccesing() {
   var number1 = parseFloat(tryInput);
@@ -302,36 +277,71 @@ function getResult() {
 //   }, 0);
 // }
 
-function simulatEval(expression) {
-  // Replace subtraction sign with a special character
-  expression = expression.replace(/(?<=\d)-/g, 'NEG');
+// function simulatEval(expression) {
+//   // Replace subtraction sign with a special character
+//   expression = expression.replace(/(?<=\d)-/g, 'NEG');
   
+//   // Split the expression into operands and operators
+//   const parts = expression.split(/([+\-*/])/);
+  
+//   // Evaluate the expression
+//   let result = 0;
+//   let currentOperator = '+';
+
+//   for (const part of parts) {
+//     if (isOperator(part)) {
+//       currentOperator = part;
+//     } else {
+//       const value = parseFloat(part || 0);
+//       if (currentOperator === '+') {
+//         result += value;
+//       } else if (currentOperator === '-') {
+//         result -= value;
+//       } else if (currentOperator === '*') {
+//         result *= value;
+//       } else if (currentOperator === '/') {
+//         result /= value;
+//       }
+//     }
+//   }
+
+//   return result;
+// }
+
+function simulatEval(expression) {
   // Split the expression into operands and operators
   const parts = expression.split(/([+\-*/])/);
-  
+
   // Evaluate the expression
   let result = 0;
   let currentOperator = '+';
+  let negate = false;
 
   for (const part of parts) {
     if (isOperator(part)) {
       currentOperator = part;
+      negate = false;
     } else {
       const value = parseFloat(part || 0);
+      const operand = negate ? -value : value;
+
       if (currentOperator === '+') {
-        result += value;
+        result += operand;
       } else if (currentOperator === '-') {
-        result -= value;
+        result -= operand;
       } else if (currentOperator === '*') {
-        result *= value;
+        result *= operand;
       } else if (currentOperator === '/') {
-        result /= value;
+        result /= operand;
       }
+
+      negate = currentOperator === '-' && part === '';
     }
   }
 
   return result;
 }
+
 
 
 function undisplay(button) {
@@ -346,7 +356,7 @@ function undisplay(button) {
     // update output display accordingly as well
     sampleresult = calculatemulti(parseFloat(sample), getNumber2(sample, getOperator(sample)), getOperator(sample));
     console.log("Sample Result:", sampleresult);
-    document.getElementById("output").innerText = sampleresult;
+    document.getElementById("output").innerText = getResult();
     computationInput.value = sample;
   }
 
