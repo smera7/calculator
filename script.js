@@ -75,7 +75,7 @@ document.getElementById('displayequals').addEventListener('click', function (e) 
   proccesing();
   getOperator(tryInput);
   // display result
-  // document.getElementById("output").innerText = getResult();
+  document.getElementById("output").innerText = getResult();
 });
 
 document.getElementById('clearzy').addEventListener('click', function (e) {
@@ -138,9 +138,13 @@ function calculatemulti(number1, number2, operator) {
     result = divide(a, b);
     // if result is a decimal, round it to 4 decimal places
     }
-    if (result % 1 != 0) {
-      result = result.toFixed(4);
+  //   if (result % 1 != 0) {
+  //     result = result.toFixed(4);
+  // }
+  if (!isNaN(result) && result !== Infinity && result !== -Infinity) {
+    result = result.toFixed(4);
   }
+  
   console.log("actual result variable:", result);
   return result;
 };
@@ -256,17 +260,53 @@ function getResult() {
 }
 
 
+// function simulatEval(expression) {
+//   // Split the expression into operands and operators
+//   const parts = expression.split(/([+\-*/])/);
+
+//   // Evaluate the expression
+//   // if (currentOperator === '+' || currentOperator === '-') {
+//   //   console.log("its zero", currentOperator)
+//   //   let result = 0;}
+//   // else if (currentOperator === '*' || currentOperator === '/') {
+//   //   let result = 1;}
+
+//   let result = 0;
+//   let currentOperator = '+';
+//   let negate = false;
+
+//   for (const part of parts) {
+//     if (isOperator(part)) {
+//       currentOperator = part;
+//       negate = false;
+//     } else {
+//       const value = parseFloat(part || 0);
+//       const operand = negate ? -value : value;
+
+//       if (currentOperator === '+') {
+//         result += operand;
+//       } else if (currentOperator === '-') {
+//         result -= operand;
+//       } else if (currentOperator === '*') {
+//         // result = operand;
+//         result *= operand;
+//       } else if (currentOperator === '/') {
+//         result /= operand;
+//         console.log("Resultinf?:", result)
+//       }
+
+//       negate = currentOperator === '-' && part === '';
+//     }
+//   }
+
+//   return result;
+// }
+
 function simulatEval(expression) {
   // Split the expression into operands and operators
   const parts = expression.split(/([+\-*/])/);
 
   // Evaluate the expression
-  // if (currentOperator === '+' || currentOperator === '-') {
-  //   console.log("its zero", currentOperator)
-  //   let result = 0;}
-  // else if (currentOperator === '*' || currentOperator === '/') {
-  //   let result = 1;}
-
   let result = 0;
   let currentOperator = '+';
   let negate = false;
@@ -284,19 +324,28 @@ function simulatEval(expression) {
       } else if (currentOperator === '-') {
         result -= operand;
       } else if (currentOperator === '*') {
-        // result = operand;
         result *= operand;
       } else if (currentOperator === '/') {
-        result /= operand;
-        console.log("Resultinf?:", result)
+        if (operand !== 0) {
+          result /= operand;
+        } else {
+          // Handle division by zero error
+          return "Error: Division by zero";
+        }
       }
 
       negate = currentOperator === '-' && part === '';
     }
   }
 
+  // Check if result is a number before using toFixed
+  if (typeof Number(result) === 'number' && Number(result) % 1 !== 0) {
+    result = Number(result).toFixed(4);
+  }
+
   return result;
 }
+
 
 
 
@@ -330,6 +379,8 @@ var clearzy = document.getElementById("clearzy");
 console.log("Clearzy element:", clearzy);
 
 clearzy.addEventListener("click", () => {
+  computationInput.value = "";
+  resultDisplay.innerText = "";
   outputSpan.textContent = "";
   localStorage.clear();
   sessionStorage.clear();
