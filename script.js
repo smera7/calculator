@@ -47,7 +47,6 @@ document.querySelectorAll('.digitz').forEach(function(button) {
       e.preventDefault();
       tryInput = document.getElementById('computation').value;
       proccesing();
-      // document.getElementById("output").innerText = result;
     } else {
       console.log("Number is the first");
       // Your logic for the case when the number is not the first
@@ -143,7 +142,6 @@ function calculatemulti(number1, number2, operator) {
       result = result.toFixed(4);
   }
   console.log("actual result variable:", result);
-  // document.getElementById("output").innerText = result;
   return result;
 };
 
@@ -173,10 +171,6 @@ function recursive(tryInput, result, number1) {
     number2 = getNumber2(updatedExpression, operator);
     resultcalcmulti = calculatemulti(number1, number2, operator);
     result = resultcalcmulti;
-    // if (['+', '-', '*', '/'].includes(nextoperator)) {
-    //   console.log("Resultcalcmulti:", result);
-    // // document.getElementById("output").innerText = result;
-    //  }
     return recursive(updatedExpression, result, number1);
   }
 };
@@ -247,17 +241,35 @@ function isOperator(text) {
 }
 
 // Function to evaluate the current expression and return the result
+// function getResult() {
+//   var expression = computationInput.value.trim();
+//   console.log("Expression:", simulatEval(expression));
+//   return simulatEval(expression);
+// }
+
 function getResult() {
   var expression = computationInput.value.trim();
-  console.log("Expression:", simulatEval(expression));
-  return simulatEval(expression);
+  var result = simulatEval(expression);
+
+  if (result === 0) {
+    return expression.slice(0, -1);
+  }
+
+  return result;
 }
+
 
 function simulatEval(expression) {
   // Split the expression into operands and operators
   const parts = expression.split(/([+\-*/])/);
 
   // Evaluate the expression
+  // if (currentOperator === '+' || currentOperator === '-') {
+  //   console.log("its zero", currentOperator)
+  //   let result = 0;}
+  // else if (currentOperator === '*' || currentOperator === '/') {
+  //   let result = 1;}
+
   let result = 0;
   let currentOperator = '+';
   let negate = false;
@@ -275,6 +287,7 @@ function simulatEval(expression) {
       } else if (currentOperator === '-') {
         result -= operand;
       } else if (currentOperator === '*') {
+        // result = operand;
         result *= operand;
       } else if (currentOperator === '/') {
         result /= operand;
