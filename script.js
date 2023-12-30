@@ -240,10 +240,66 @@ function display(button) {
   }
 }
 
-// Function to check if a button represents an operator
-function isOperator(text) {
-  return ['+', '-', '*', '/'].includes(text);
+document.querySelectorAll('.digitz, .operatormulti').forEach(function(button) {
+  button.addEventListener('click', function(e) {
+    e.preventDefault();
+    buttonText = button.textContent;
+
+    if (buttonText === "=" || buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+      operatorPressed = true;
+
+      // Call processing() asynchronously
+      setTimeout(function() {
+        if (checkInvalidOperators()) {
+          // Display an error message
+          document.getElementById("output").innerText = "Error: Invalid operator sequence";
+        } else {
+          processing();
+          // Update the result and display it
+          document.getElementById("output").innerText = result;
+        }
+      }, 0);
+      
+    } else {
+      // If it's not an operator, update currentInput
+      currentInput += buttonText;
+    }
+  });
+});
+
+function checkInvalidOperators() {
+  const invalidOperators = /(\*\*|\/\/)/g;
+  console.log("Invalid operator sequence");
+  return invalidOperators.test(document.getElementById('computation').value);
 }
+
+
+// Function to check if a button represents an operator
+// function isOperator(text) {
+//   return ['+', '-', '*', '/'].includes(text);
+// }
+
+function isOperator(input) {
+  const binaryOperators = ['+', '-', '*', '/'];
+  const unaryOperators = ['-'];  // Add more unary operators if needed
+
+  // Check if the input is a binary operator
+  if (binaryOperators.includes(input)) {
+    console.log("Binary operator");
+    // return error message
+    alert("Error: Invalid operator sequence");
+    return 'binary';
+  }
+
+  // Check if the input is a unary operator
+  if (unaryOperators.includes(input)) {
+    console.log("Unary operator");
+    return 'unary';
+  }
+
+  return false; // Not an operator
+}
+
 
 // Function to evaluate the current expression and return the result
 // function getResult() {
@@ -254,60 +310,26 @@ function isOperator(text) {
 
 function getResult() {
   var expression = computationInput.value.trim();
+  expression;
+  console.log("ExpressionAAA:", expression);
   var result = simulatEval(expression);
   console.log("what is simulateval:", simulatEval(expression));
   return simulatEval(expression);
 }
 
-
-// function simulatEval(expression) {
-//   // Split the expression into operands and operators
-//   const parts = expression.split(/([+\-*/])/);
-
-//   // Evaluate the expression
-//   // if (currentOperator === '+' || currentOperator === '-') {
-//   //   console.log("its zero", currentOperator)
-//   //   let result = 0;}
-//   // else if (currentOperator === '*' || currentOperator === '/') {
-//   //   let result = 1;}
-
-//   let result = 0;
-//   let currentOperator = '+';
-//   let negate = false;
-
-//   for (const part of parts) {
-//     if (isOperator(part)) {
-//       currentOperator = part;
-//       negate = false;
-//     } else {
-//       const value = parseFloat(part || 0);
-//       const operand = negate ? -value : value;
-
-//       if (currentOperator === '+') {
-//         result += operand;
-//       } else if (currentOperator === '-') {
-//         result -= operand;
-//       } else if (currentOperator === '*') {
-//         // result = operand;
-//         result *= operand;
-//       } else if (currentOperator === '/') {
-//         result /= operand;
-//         console.log("Resultinf?:", result)
-//       }
-
-//       negate = currentOperator === '-' && part === '';
-//     }
-//   }
-
-//   return result;
-// }
-
 function simulatEval(expression) {
   // Split the expression into operands and operators
-  const parts = expression.split(/([+\-*/])/);
+  // Replace ** with *
+  const processedExpression = expression.replace(/\*\*/g, '*').replace(/\/\//g, '/');
+  console.log("Processed Expression:", processedExpression);
+  // const parts = expression.split(/([+\-*/])/);
+  const parts = processedExpression.split(/([+\-*/])/);
+  console.log("Parts:", parts);
+  // const parts = expression.split(/([+\-*/ **])/); // Includes ** as an operator
 
   // Evaluate the expression
   let result = 0;
+  
   let currentOperator = '+';
   let negate = false;
 
@@ -318,7 +340,6 @@ function simulatEval(expression) {
     } else {
       const value = parseFloat(part || 0);
       const operand = negate ? -value : value;
-
       if (currentOperator === '+') {
         result += operand;
       } else if (currentOperator === '-') {
@@ -345,9 +366,6 @@ function simulatEval(expression) {
 
   return result;
 }
-
-
-
 
 function undisplay(button) {
   var computationInput = document.getElementById('computation');
